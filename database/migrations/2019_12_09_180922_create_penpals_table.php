@@ -19,7 +19,7 @@ class CreatePenpalsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->unsignedSmallInteger('role');
-            $table->string('phone');
+            $table->string('phone', 32)->nullable();
             $table->string('address');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
