@@ -1,3 +1,3 @@
 Hello,
 
-Log in to MyApp here: <a href="{{ $url }}">{{ $url }}</a>
+Log in to PenPals for Yang here: <a href="{{ $url }}">{{ $url }}</a>
