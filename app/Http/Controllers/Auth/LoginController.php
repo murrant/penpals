@@ -60,7 +60,7 @@ class LoginController extends Controller
         return view('auth.login-sent', compact('email'));
     }
 
-    public function authenticateEmail($token, $remember)
+    public function authenticateEmail($token, $remember = false)
     {
         $emailLogin = EmailLogin::validFromToken($token);
 
