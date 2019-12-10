@@ -33,7 +33,7 @@ class CreateAddressesTable extends Migration
             $table->string('result_code');
             $table->unsignedBigInteger('mak')->unique();
             $table->dateTime('assigned')->nullable();
-            $table->dateTime('mailed')->nullable();
+            $table->dateTime('completed')->nullable();
             $table->timestamps();
         });
     }

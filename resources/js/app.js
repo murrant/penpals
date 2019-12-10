@@ -19,7 +19,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('address-list', require('./components/AddressList.vue').default);
+Vue.component('address-list-item', require('./components/AddressListItem.vue').default);
+Vue.component('mailing-address', require('./components/MailingAddress.vue').default);
+Vue.component('resident', require('./components/Resident.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

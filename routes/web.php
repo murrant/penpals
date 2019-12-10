@@ -15,12 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['reset' => false, 'confirm' => false]);
+Route::get('login/{token}', [
+    'as' => 'auth.email-authenticate',
+    'uses' => 'Auth\LoginController@authenticateEmail'
+]);
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::get('auth/email-authenticate/{token}', [
-    'as' => 'auth.email-authenticate',
-    'uses' => 'Auth\LoginController@authenticateEmail'
-])  ;
+// frontend access
+Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
+    Route::resource('address', 'AddressController')->only(['index', 'update', 'show']);
+});
