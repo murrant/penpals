@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
@@ -25,6 +26,21 @@ class Address extends Model
         'mak',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Setup event bindings...
+        Address::saving(function($address)
+        {
+            /** @var Address $address */
+            if ($address->penpal_id && $address->getOriginal('penpal_id') == 0) {
+                // if a penpal was just assigned
+                $address->assigned = Carbon::now();
+            }
+        });
+    }
+
     public function scopeIsUnassigned($query) {
         return $query->where('penpal_id', 0);
     }
@@ -39,6 +55,11 @@ class Address extends Model
 
     public function penpal()
     {
-        return $this->hasOne(\App\Penpal::class, 'id', 'penpal_id');
+        return $this->belongsTo(\App\Penpal::class, 'id', 'penpal_id');
+    }
+
+    public function residents()
+    {
+        return $this->hasMany(\App\Resident::class, 'address_id', 'id');
     }
 }
