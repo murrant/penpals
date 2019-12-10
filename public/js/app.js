@@ -1882,12 +1882,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddressList",
   data: function data() {
     return {
-      "addresses": [],
-      "test": true
+      "addresses": []
     };
   },
   mounted: function mounted() {
@@ -1923,6 +1925,13 @@ __webpack_require__.r(__webpack_exports__);
 
           return address;
         });
+      });
+    },
+    requestMore: function requestMore() {
+      var _this3 = this;
+
+      axios.get('ajax/address/request').then(function (response) {
+        return _this3.addresses = response.data.addresses;
       });
     }
   }
@@ -1967,7 +1976,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      completed: this.address.completed
+      completed: this.address.completed !== null
     };
   },
   watch: {
@@ -38207,14 +38216,20 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(1)
                   ])
-                : _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { role: "button" }
-                    },
-                    [_vm._v("Request More")]
-                  ),
+                : _c("div", [
+                    _vm._v("\n                        All letters sent! :D"),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { role: "button" },
+                        on: { click: _vm.requestMore }
+                      },
+                      [_vm._v("Request More")]
+                    )
+                  ]),
               _vm._v(" "),
               _vm._l(_vm.assigned, function(address) {
                 return _c("address-list-item", {

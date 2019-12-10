@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Penpal;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class AddressController extends Controller
      */
     public function index()
     {
+        /** @var Penpal $penpal */
         $penpal = Auth::user();
 
         // only load primary
@@ -37,12 +39,18 @@ class AddressController extends Controller
         return response()->json(['addresses' => $penpal->addresses]);
     }
 
+    public function additionalAddresses()
+    {
+        Auth::user()->assignAddressAllotment();
+        return $this->index();
+    }
+
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -52,9 +60,10 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {

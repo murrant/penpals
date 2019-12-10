@@ -9,7 +9,10 @@
                             <div><h4>PenPal</h4></div>
                             <div style="justify-self: end;"><h4>Mail Sent?</h4></div>
                         </div>
-                        <button v-else role="button" class="btn btn-primary">Request More</button>
+                        <div v-else>
+                            All letters sent! :D<br />
+                            <button role="button" class="btn btn-primary" @click="requestMore">Request More</button>
+                        </div>
                         <address-list-item
                             v-for="address in assigned"
                             :key="address.id"
@@ -47,8 +50,7 @@
         name: "AddressList",
         data() {
             return {
-                "addresses": [],
-                "test": true
+                "addresses": []
             }
         },
         mounted() {
@@ -76,6 +78,10 @@
                         return address;
                     });
                 });
+            },
+            requestMore() {
+                axios.get('ajax/address/request')
+                    .then(response => (this.addresses = response.data.addresses))
             }
         }
     }

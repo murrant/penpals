@@ -1,7 +1,8 @@
 <?php
 
 return [
-
-    'initial-addresses' => 5,
-
+    'addresses' => [
+        'allotment' => 10,
+        'max' => 5
+    ]
 ];

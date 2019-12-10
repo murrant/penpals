@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 class Address extends Model
 {
@@ -41,16 +42,26 @@ class Address extends Model
         });
     }
 
+    /**
+     * Select only unassigned addresses
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeIsUnassigned($query) {
         return $query->where('penpal_id', 0);
     }
 
+    /**
+     * select x random unassigned addresses
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeRandomAllotment($query)
     {
         return $query
             ->where('penpal_id', 0)
             ->inRandomOrder()
-            ->limit(config('penpals.initial-addresses', 5));
+            ->limit(config('penpals.addresses.allotment', 5));
     }
 
     public function penpal()

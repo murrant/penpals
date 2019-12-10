@@ -27,7 +27,7 @@
         },
         data() {
             return {
-                completed: this.address.completed
+                completed: this.address.completed !== null
             }
         },
         watch: {

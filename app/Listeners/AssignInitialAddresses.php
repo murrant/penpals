@@ -28,11 +28,6 @@ class AssignInitialAddresses
      */
     public function handle(Verified $event)
     {
-        $penpal = $event->penpal;
-
-        // grab x random unassigned addresses
-        $addresses = Address::query()->randomAllotment()->get();
-
-        $penpal->addresses()->saveMany($addresses);
+        $event->penpal->assignAddressAllotment();
     }
 }
