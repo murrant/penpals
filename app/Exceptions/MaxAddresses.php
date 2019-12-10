@@ -25,7 +25,7 @@ class MaxAddresses extends Exception
     public function render($request)
     {
         return $request->expectsJson()
-            ? response()->json(['error' => 'Too Many Addresses'], 403)
+            ? response()->json(['message' => __('exceptions.too-many-addresses')], 403)
             : response()->view('too-many-addresses');
     }
 }

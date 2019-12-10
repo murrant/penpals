@@ -27,7 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // frontend access
 Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
     Route::get('address/request', 'AddressController@additionalAddresses')
-        ->name('address.request')
-        ->middleware('throttle:1,1');
+        ->name('address.request');
+//        ->middleware('throttle:1,1');
     Route::resource('address', 'AddressController')->only(['index', 'update', 'show']);
 });

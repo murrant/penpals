@@ -82,6 +82,7 @@
             requestMore() {
                 axios.get('ajax/address/request')
                     .then(response => (this.addresses = response.data.addresses))
+                    .catch(error => toastr.error(error.response.data.message))
             }
         }
     }
