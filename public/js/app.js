@@ -1872,11 +1872,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddressList",
   data: function data() {
     return {
-      "addresses": []
+      "addresses": [],
+      "test": true
     };
   },
   mounted: function mounted() {
@@ -1889,12 +1900,29 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     assigned: function assigned() {
       return this.addresses.filter(function (address) {
-        return !address.completed;
+        return address.completed === null;
       });
     },
     completed: function completed() {
       return this.addresses.filter(function (address) {
-        return address.completed > 0;
+        return address.completed !== null;
+      });
+    }
+  },
+  methods: {
+    changeCompleted: function changeCompleted(event) {
+      var _this2 = this;
+
+      axios.put('ajax/address/' + event.id, {
+        completed: event.value
+      }).then(function (response) {
+        _this2.addresses = _this2.addresses.map(function (address) {
+          if (address.id === response.data.id) {
+            address['completed'] = response.data.completed;
+          }
+
+          return address;
+        });
       });
     }
   }
@@ -1925,6 +1953,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddressListItem",
   props: {
@@ -1937,6 +1969,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       completed: this.address.completed
     };
+  },
+  watch: {
+    completed: function completed() {
+      this.$emit('address-completed', {
+        id: this.address.id,
+        value: this.completed
+      });
+    }
   }
 });
 
@@ -6576,7 +6616,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.address-panel[data-v-0a1c026c] {\n    display: grid;\n    grid-template-columns: auto 80px;\n    /*grid-gap: 10px;*/\n    margin-bottom: 25px;\n}\n.resident-panel[data-v-0a1c026c] {\n    display:grid;\n    grid-gap: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.address-panel[data-v-0a1c026c] {\n    display: grid;\n    grid-template-columns: auto 80px;\n    /*grid-gap: 10px;*/\n    margin-bottom: 25px;\n}\n.resident-panel[data-v-0a1c026c] {\n    display: grid;\n    grid-gap: 10px;\n}\n", ""]);
 
 // exports
 
@@ -38179,7 +38219,8 @@ var render = function() {
               _vm._l(_vm.assigned, function(address) {
                 return _c("address-list-item", {
                   key: address.id,
-                  attrs: { address: address }
+                  attrs: { address: address },
+                  on: { "address-completed": _vm.changeCompleted }
                 })
               })
             ],
@@ -38211,7 +38252,8 @@ var render = function() {
               _vm._l(_vm.completed, function(address) {
                 return _c("address-list-item", {
                   key: address.id,
-                  attrs: { address: address }
+                  attrs: { address: address },
+                  on: { "address-completed": _vm.changeCompleted }
                 })
               })
             ],
@@ -51014,8 +51056,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/murrant/projects/yang-penpals/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/murrant/projects/yang-penpals/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/murrant/projects/penpals/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/murrant/projects/penpals/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

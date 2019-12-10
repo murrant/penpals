@@ -66,6 +66,6 @@ class AddressController extends Controller
         $address->completed = $request->get('completed') ? Carbon::now() : null;
         $address->save();
 
-        return response()->json(compact('address'));
+        return response()->json($address);
     }
 }

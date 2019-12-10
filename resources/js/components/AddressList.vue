@@ -10,7 +10,12 @@
                             <div style="justify-self: end;"><h4>Mail Sent?</h4></div>
                         </div>
                         <button v-else role="button" class="btn btn-primary">Request More</button>
-                        <address-list-item v-for="address in assigned" :key="address.id" :address="address"></address-list-item>
+                        <address-list-item
+                            v-for="address in assigned"
+                            :key="address.id"
+                            :address="address"
+                            @address-completed="changeCompleted"
+                        />
                     </div>
                 </div>
             </div>
@@ -24,7 +29,12 @@
                             <div><h4>PenPal</h4></div>
                             <div style="justify-self: end;"><h4>Mail Sent?</h4></div>
                         </div>
-                        <address-list-item v-for="address in completed" :key="address.id" :address="address"></address-list-item>
+                        <address-list-item
+                            v-for="address in completed"
+                            :key="address.id"
+                            :address="address"
+                            @address-completed="changeCompleted"
+                        />
                     </div>
                 </div>
             </div>
@@ -37,7 +47,8 @@
         name: "AddressList",
         data() {
             return {
-                "addresses": []
+                "addresses": [],
+                "test": true
             }
         },
         mounted() {
@@ -46,10 +57,25 @@
         },
         computed: {
             assigned() {
-                return this.addresses.filter(address => !address.completed)
+                return this.addresses.filter(address => address.completed === null)
             },
             completed() {
-                return this.addresses.filter(address => address.completed > 0)
+                return this.addresses.filter(address => address.completed !== null)
+            }
+        },
+        methods: {
+            changeCompleted(event) {
+                axios.put('ajax/address/' + event.id, {
+                    completed: event.value
+                })
+                .then(response => {
+                    this.addresses = this.addresses.map(address => {
+                        if (address.id === response.data.id) {
+                            address['completed'] = response.data.completed
+                        }
+                        return address;
+                    });
+                });
             }
         }
     }
