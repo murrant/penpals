@@ -38230,35 +38230,31 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "row justify-content-center mt-3" }, [
       _c("div", { staticClass: "col-lg-8 col-md-10 col-sm-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _vm._v("Completed (" + _vm._s(_vm.completed.length) + ")")
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _vm.completed.length > 0
-                ? _c("div", { staticClass: "list-header" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3)
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.completed, function(address) {
-                return _c("address-list-item", {
-                  key: address.id,
-                  attrs: { address: address },
-                  on: { "address-completed": _vm.changeCompleted }
-                })
-              })
-            ],
-            2
-          )
+          _vm.completed.length > 0
+            ? _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._l(_vm.completed, function(address) {
+                    return _c("address-list-item", {
+                      key: address.id,
+                      attrs: { address: address },
+                      on: { "address-completed": _vm.changeCompleted }
+                    })
+                  })
+                ],
+                2
+              )
+            : _vm._e()
         ])
       ])
     ])
@@ -38283,14 +38279,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h4", [_vm._v("PenPal")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { "justify-self": "end" } }, [
-      _c("h4", [_vm._v("Mail Sent?")])
+    return _c("div", { staticClass: "list-header" }, [
+      _c("div", [_c("h4", [_vm._v("PenPal")])]),
+      _vm._v(" "),
+      _c("div", { staticStyle: { "justify-self": "end" } }, [
+        _c("h4", [_vm._v("Mail Sent?")])
+      ])
     ])
   }
 ]

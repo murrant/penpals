@@ -20,12 +20,12 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-3">
             <div class="col-lg-8 col-md-10 col-sm-12">
-                <div class="card">
+                <div class="card" >
                     <div class="card-header">Completed ({{ completed.length }})</div>
-                    <div class="card-body">
-                        <div v-if="completed.length > 0" class="list-header">
+                    <div class="card-body" v-if="completed.length > 0">
+                        <div class="list-header">
                             <div><h4>PenPal</h4></div>
                             <div style="justify-self: end;"><h4>Mail Sent?</h4></div>
                         </div>
