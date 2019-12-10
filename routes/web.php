@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes(['reset' => false, 'confirm' => false]);
-Route::get('login/{token}', [
+Route::get('login/{token}/{remember?}', [
     'as' => 'auth.email-authenticate',
     'uses' => 'Auth\LoginController@authenticateEmail'
 ]);

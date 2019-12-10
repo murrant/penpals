@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\EmailLogin;
 use App\Events\Verified;
 use App\Http\Controllers\Controller;
+use App\Penpal;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -50,9 +51,7 @@ class LoginController extends Controller
         $email = $request->input('email');
         $emailLogin = EmailLogin::createForEmail($email);
 
-        $url = route('auth.email-authenticate', [
-            'token' => $emailLogin->token
-        ]);
+        $url = $this->buildLoginLink($emailLogin->token, $request->input('remember'));
 
         Mail::send('auth.emails.email-login', ['url' => $url], function ($m) use ($email) {
             $m->to($email)->subject('PenPals for Yang Login');
@@ -61,17 +60,28 @@ class LoginController extends Controller
         return view('auth.login-sent', compact('email'));
     }
 
-    public function authenticateEmail($token)
+    public function authenticateEmail($token, $remember)
     {
         $emailLogin = EmailLogin::validFromToken($token);
 
-        Auth::login($emailLogin->penpal);
+        Auth::login($emailLogin->penpal, $remember);
 
+        /** @var Penpal $penpal */
         $penpal = Auth::user();
         if ($penpal && !$penpal->email_verified_at) {
             event(new Verified($penpal));
         }
 
         return redirect('home');
+    }
+
+    private function buildLoginLink($token, $remember)
+    {
+        $params = ['token' => $token];
+        if ($remember) {
+            $params['remember'] = 'remember';
+        }
+
+        return route('auth.email-authenticate', $params);
     }
 }
