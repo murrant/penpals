@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'penpals',
         ],
 
         'api' => [
@@ -71,10 +71,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'penpals' => [
+             'driver' => 'eloquent',
+             'model' => App\Penpal::class,
+         ],
     ],
 
     /*

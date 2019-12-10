@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('auth/email-authenticate/{token}', [
+    'as' => 'auth.email-authenticate',
+    'uses' => 'Auth\LoginController@authenticateEmail'
+])  ;
