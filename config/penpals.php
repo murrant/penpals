@@ -3,6 +3,6 @@
 return [
     'addresses' => [
         'allotment' => 10,
-        'max' => 50,
+        'max' => 250,
     ]
 ];
