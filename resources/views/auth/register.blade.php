@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">@lang('Sign Up')</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -53,13 +53,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="display: none;">
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
                             <div class="col-md-6">
                                 <select id="role" name="role" class="form-control" required autocomplete="role">
-                                    <option value="0" @if(old('role') == 0) selected @endif>Letter Writer</option>
-                                    <option value="1" @if(old('role') == 1) selected @endif>Researcher</option>
+                                    <option value="0" @if(old('role') == 0) selected @endif>@lang('Letter Writer')</option>
+                                    <option value="1" @if(old('role') == 1) selected @endif>@lang('Researcher')</option>
+                                    <option value="2" @if(old('role') == 2) selected @endif>@lang('Party Organizer')</option>
                                 </select>
 
                                 @error('role')
@@ -104,7 +105,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    @lang('Sign Up')
                                 </button>
                             </div>
                         </div>

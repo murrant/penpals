@@ -6,10 +6,9 @@ use App\EmailLogin;
 use App\Events\Verified;
 use App\Http\Controllers\Controller;
 use App\Penpal;
-use Carbon\Carbon;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Auth;
 use Mail;
 
 class LoginController extends Controller
