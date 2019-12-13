@@ -35,6 +35,6 @@ class CreateResidentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resident');
+        Schema::dropIfExists('residents');
     }
 }
