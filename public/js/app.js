@@ -2008,13 +2008,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Address",
   props: {
     address: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    addressLines: function addressLines() {
+      var address = [];
+      address.push((this.address.address_number + ' ' + this.address.unit + ' ' + this.address.street).replace('  ', ' '));
+      var added = [];
+
+      if (this.address.building) {
+        added.push('BLDG ' + this.address.building);
+      }
+
+      if (this.address.room) {
+        added.push('RM ' + this.address.room);
+      }
+
+      if (this.address.additional) {
+        added.push(this.address.additional);
+      }
+
+      if (added.length > 0) {
+        address.push(added.join(' '));
+      }
+
+      address.push(this.address.city + ', ' + this.address.state + ' ' + this.address.zip + (this.address.zip4 ? '-' + this.address.zip4 : ''));
+      return address;
     }
   }
 });
@@ -38891,21 +38916,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "address" }, [
-    _vm._v("\n    " + _vm._s(_vm.address.address)),
-    _c("br"),
-    _vm._v(
-      "\n    " +
-        _vm._s(_vm.address.city) +
-        ", " +
-        _vm._s(_vm.address.state_name) +
-        " " +
-        _vm._s(_vm.address.zip) +
-        "-" +
-        _vm._s(_vm.address.zip4) +
-        "\n"
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "address" },
+    _vm._l(_vm.addressLines, function(line) {
+      return _c("div", [_vm._v(_vm._s(line))])
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

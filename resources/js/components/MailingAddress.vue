@@ -1,7 +1,6 @@
 <template>
     <div class="address">
-        {{ address.address }}<br />
-        {{ address.city }}, {{ address.state_name }} {{ address.zip }}-{{ address.zip4 }}
+        <div v-for="line in addressLines">{{ line }}</div>
     </div>
 </template>
 
@@ -13,7 +12,36 @@
                 type: Object,
                 required: true
             }
+        },
+        computed: {
+            addressLines() {
+                let address = [];
+
+                address.push((this.address.address_number + ' ' + this.address.unit + ' ' + this.address.street).replace('  ', ' '));
+                let added = [];
+
+                if (this.address.building) {
+                    added.push('BLDG ' + this.address.building);
+                }
+
+                if (this.address.room) {
+                    added.push('RM ' + this.address.room);
+                }
+
+                if (this.address.additional) {
+                    added.push(this.address.additional);
+                }
+
+                if (added.length > 0) {
+                    address.push(added.join(' '));
+                }
+
+                address.push(this.address.city + ', ' + this.address.state + ' ' + this.address.zip + (this.address.zip4 ? ('-' + this.address.zip4) : ''));
+
+                return address;
+            }
         }
+
     }
 </script>
 

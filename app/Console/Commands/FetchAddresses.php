@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\TransferStats;
 use Illuminate\Console\Command;
 
 class FetchAddresses extends Command
@@ -45,10 +46,14 @@ class FetchAddresses extends Command
 
         $jar = new CookieJar();
 
-        $client->request('GET', 'https://www.melissa.com/v2/lookups/addresssearch/', [
+        $client->request('PUT', 'https://www.melissa.com/user/signin.aspx', [
+            'query' => [
+                'ctl00$ContentPlaceHolder1$Signin1$txtEmail' => 'murraytony@yahoo.com',
+                'ctl00$ContentPlaceHolder1$Signin1$txtPassword' => 'veEv7uFa.8*$v!Y',
+                'ctl00$ContentPlaceHolder1$Signin1$btnLogin' => 'Sign In',
+            ],
             'cookies' => $jar
         ]);
-
 
         $response = $client->request('GET', 'https://www.melissa.com/v2/lookups/addresssearch/', [
             'query' => [
@@ -57,12 +62,15 @@ class FetchAddresses extends Command
                 'fmt' => 'json',
                 'id' => null,
             ],
+            'on_stats' => function (TransferStats $stats) use (&$url) {
+                $url = $stats->getEffectiveUri();
+            },
             'cookies' => $jar,
         ]);
 
 
-        $streets = json_decode($response->getBody(), true);
+        $streets = $response->getBody()->getContents();
 
-        dd($streets, $jar);
+        dd($streets, $jar, (string)$url);
     }
 }

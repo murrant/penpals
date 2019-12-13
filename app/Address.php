@@ -9,22 +9,19 @@ use Illuminate\Database\Query\Builder;
 class Address extends Model
 {
     protected $fillable = [
-        'house_number',
+        'address_number',
         'street',
-        'street_suffix',
+        'building',
+        'floor',
+        'unit',
+        'room',
+        'additional',
         'city',
+        'county',
         'state',
         'zip',
-        'street_name',
-        'address',
-        'state_name',
         'zip4',
         'address_type',
-        'rbdi',
-        'fips',
-        'county',
-        'result_code',
-        'mak',
     ];
 
     public static function boot()
@@ -40,6 +37,34 @@ class Address extends Model
                 $address->assigned = Carbon::now();
             }
         });
+    }
+
+    public function toString($separator = "\n")
+    {
+        $address = [];
+
+        $address[] = str_replace('  ', ' ', "$this->address_number $this->unit $this->street");
+        $added = [];
+
+        if ($this->building) {
+            $added[] = "BLDG $this->building";
+        }
+
+        if ($this->room) {
+            $added[] = "RM $this->room";
+        }
+
+        if ($this->additional) {
+            $added[] = "$this->additional";
+        }
+
+        if ($added) {
+            $address[] = implode(' ', $added);
+        }
+
+        $address[] = "$this->city, $this->state $this->zip" . ($this->zip4 ? "-$this->zip4" : '');
+
+        return implode($separator, $address);
     }
 
     /**
