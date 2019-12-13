@@ -27,8 +27,8 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('county');
             $table->string('state');
-            $table->unsignedSmallInteger('zip');
-            $table->unsignedSmallInteger('zip4')->nullable();
+            $table->unsignedInteger('zip');
+            $table->unsignedInteger('zip4')->nullable();
             $table->string('address_type')->nullable();
             $table->dateTime('assigned')->nullable();
             $table->dateTime('completed')->nullable();
