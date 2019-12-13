@@ -17,20 +17,13 @@
             addressLines() {
                 let address = [];
 
-                address.push((this.address.address_number + ' ' + this.address.unit + ' ' + this.address.street).replace('  ', ' '));
-                let added = [];
-
-                if (this.address.building) {
-                    added.push('BLDG ' + this.address.building);
-                }
-
-                if (this.address.room) {
-                    added.push('RM ' + this.address.room);
-                }
-
-                if (this.address.additional) {
-                    added.push(this.address.additional);
-                }
+                address.push((this.address.address_number + ' ' + (this.address.unit ? (this.address.unit + ' ') : '') + this.address.street));
+                let added = [
+                    this.address.building,
+                    this.address.floor,
+                    this.address.room,
+                    this.address.additional
+                ].filter(a => a);
 
                 if (added.length > 0) {
                     address.push(added.join(' '));

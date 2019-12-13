@@ -2019,20 +2019,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     addressLines: function addressLines() {
       var address = [];
-      address.push((this.address.address_number + ' ' + this.address.unit + ' ' + this.address.street).replace('  ', ' '));
-      var added = [];
-
-      if (this.address.building) {
-        added.push('BLDG ' + this.address.building);
-      }
-
-      if (this.address.room) {
-        added.push('RM ' + this.address.room);
-      }
-
-      if (this.address.additional) {
-        added.push(this.address.additional);
-      }
+      address.push(this.address.address_number + ' ' + (this.address.unit ? this.address.unit + ' ' : '') + this.address.street);
+      var added = [this.address.building, this.address.floor, this.address.room, this.address.additional].filter(function (a) {
+        return a;
+      });
 
       if (added.length > 0) {
         address.push(added.join(' '));

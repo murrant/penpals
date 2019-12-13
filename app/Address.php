@@ -44,19 +44,13 @@ class Address extends Model
         $address = [];
 
         $address[] = str_replace('  ', ' ', "$this->address_number $this->unit $this->street");
-        $added = [];
 
-        if ($this->building) {
-            $added[] = "BLDG $this->building";
-        }
-
-        if ($this->room) {
-            $added[] = "RM $this->room";
-        }
-
-        if ($this->additional) {
-            $added[] = "$this->additional";
-        }
+        $added = array_filter([
+            $this->building,
+            $this->floor,
+            $this->room,
+            $this->additional,
+        ]);
 
         if ($added) {
             $address[] = implode(' ', $added);
