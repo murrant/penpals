@@ -14,7 +14,7 @@ class ComplexAddressStatus extends Migration
     public function up()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $this->dropDefaultConstraint('valid');
+            $table->dropDefaultConstraint('valid');
             $table->dropColumn('valid');
             $table->unsignedSmallInteger('status')->default(AddressStatus::Unverified);
         });
