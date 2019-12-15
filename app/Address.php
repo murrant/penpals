@@ -43,23 +43,38 @@ class Address extends Model
     {
         $address = [];
 
-        $address[] = str_replace('  ', ' ', "$this->address_number $this->unit $this->street");
-
-        $added = array_filter([
-            $this->building,
-            $this->floor,
-            $this->room,
-            $this->additional,
-        ]);
+        $address[] = $this->addressLineOne();
+        $added = $this->addressLineTwo();
 
         if ($added) {
             $address[] = implode(' ', $added);
         }
 
-        $address[] = "$this->city, $this->state $this->zip" . ($this->zip4 ? "-$this->zip4" : '');
+        $address[] = $this->addressLineThree();
 
         return implode($separator, $address);
     }
+
+    public function addressLineOne()
+    {
+        return str_replace('  ', ' ', "$this->address_number $this->unit $this->street");
+    }
+
+    public function addressLineTwo()
+    {
+        return array_filter([
+            $this->building,
+            $this->floor,
+            $this->room,
+            $this->additional,
+        ]);
+    }
+
+    public function addressLineThree()
+    {
+        return "$this->city, $this->state $this->zip" . ($this->zip4 ? "-$this->zip4" : '');
+    }
+
 
     /**
      * Select only unassigned addresses
@@ -79,6 +94,7 @@ class Address extends Model
     {
         return $query
             ->where('penpal_id', 0)
+            ->where('status', AddressStatus::Valid)
             ->inRandomOrder()
             ->limit(config('penpals.addresses.allotment', 5));
     }
