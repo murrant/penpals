@@ -8,6 +8,8 @@ use Illuminate\Console\Command;
 
 class MellisaVerificationExport extends Command
 {
+    private $batchSize = 499;
+
     /**
      * The name and signature of the console command.
      *
@@ -39,12 +41,11 @@ class MellisaVerificationExport extends Command
      */
     public function handle()
     {
-        $max = ceil(Address::count() / 500);
-        $batch = 0;
+        $max = ceil(Address::count() / $this->batchSize);
 
         for ($batch = 0; $batch <= $max; $batch++) {
             $this->info("Exporting $batch of $max");
-            $file = base_path('data/iowa_' . $batch . '.csv');
+            $file = 'melissa/iowa_' . $batch . '.csv';
             (new MelissaVerificationAddressExport($batch))->store($file);
         }
 

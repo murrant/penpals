@@ -6,11 +6,12 @@ use App\Address;
 use App\AddressStatus;
 use Illuminate\Database\Query\Builder;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class MelissaVerificationAddressExport implements FromQuery, WithMapping, WithHeadings
+class MelissaVerificationAddressExport implements FromCollection, WithMapping, WithHeadings
 {
     use Exportable;
     private $batch;
@@ -20,16 +21,20 @@ class MelissaVerificationAddressExport implements FromQuery, WithMapping, WithHe
         $this->batch = $batch;
     }
 
+
     /**
-     * @return Builder
+     * @return \Illuminate\Support\Collection
      */
-    public function query()
+    public function collection()
     {
         $offset = ($this->batch) * 500;
 
-        $query = Address::query()->limit(500)->offset($offset);
-//            ->where('status', AddressStatus::Unverified);
-        return $query;
+        return Address::query()
+            ->limit(500)
+            ->offset($offset)
+//            ->where('status', AddressStatus::Unverified)
+            ->orderBy('id')
+            ->get();
     }
 
     /**
