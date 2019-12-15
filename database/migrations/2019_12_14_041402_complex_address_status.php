@@ -13,13 +13,8 @@ class ComplexAddressStatus extends Migration
      */
     public function up()
     {
-        $tableName = 'addresses';
-        if ('sqlsrv' == DB::connection()->getDriverName()) {
-            $defaultContraint = DB::selectOne("SELECT OBJECT_NAME([default_object_id]) AS name FROM SYS.COLUMNS WHERE [object_id] = OBJECT_ID('[dbo].[$tableName]') AND [name] = 'valid'");
-            DB::statement("ALTER TABLE [dbo].[$tableName] DROP CONSTRAINT $defaultContraint->name");
-        }
-
-        Schema::table($tableName, function (Blueprint $table) {
+        Schema::table('addresses', function (Blueprint $table) {
+            $this->dropDefaultConstraint('valid');
             $table->dropColumn('valid');
             $table->unsignedSmallInteger('status')->default(AddressStatus::Unverified);
         });
