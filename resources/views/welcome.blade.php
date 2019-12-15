@@ -1,89 +1,90 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>Home Page - PenPalsForYangHomepage</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 
-            .full-height {
-                height: 100vh;
-            }
+    <style>
+        body {
+            background-color: white;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .panel {
+            padding: 25px;
+        }
+        .panel>p {
+            margin-top: 20px;
+        }
+        .panel>h3 {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
 
-            .position-ref {
-                position: relative;
-            }
+<div class="container">
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+    @if (false)
+        <div class="top-right links">
+            @auth
+                <a href="{{ url('/home') }}">@lang('home')</a>
+            @else
+                <a href="{{ route('login') }}">@lang('Login')</a>
 
-            .content {
-                text-align: center;
-            }
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">@lang('Sign Up')</a>
+                @endif
+            @endauth
+        </div>
+    @endif
 
-            .title {
-                font-size: 84px;
-            }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">@lang('home')</a>
-                    @else
-                        <a href="{{ route('login') }}">@lang('Login')</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">@lang('Sign Up')</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    @lang('PenPals for Yang')
-                </div>
+    <div class="row">
+        <div class="col-12 flex-fill pad-5"
+             style="padding:25px;width:100%;height:500px;background-image:url('{{ asset('images/penpalsforyang.jpeg') }}'); background-size:cover;background-position:center;background-repeat:no-repeat;"></div>
+    </div>
+    <div class="row" style="margin-top: 30px">
+        <h2>Volunteer Info</h2>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 justify-content-center text-center panel">
+            <img src="{{ asset('images/1.png') }}">
+            <h3>Become a Letter Writer</h3>
+            <p>Become a Volunteer and we will set you up with a batch of new pen pals to write to</p>
+            <div><a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSf-4bqMYvMBFnOTJiVzP7C6-zmdGzdA_5cn5RcxH_jnmaMJ6w/viewform">SIGN UP</a></div>
+        </div>
+        <div class="col-sm-4 justify-content-center text-center panel">
+            <img src="{{ asset('images/2.png') }}">
+            <h3>Basic Letter Guidelines</h3>
+            <p>Information and Basic Guidelines to follow for writing letters to your pen pal</p>
+            <div class="justify-content-center"><a class="btn btn-primary" href="https://docs.google.com/document/d/1NGglZLKoOfeT4HjyQEBU_sbjkmBZNkLc12rKSPOIXeo/">FIND OUT MORE</a>
             </div>
         </div>
-    </body>
+        <div class="col-sm-4 justify-content-center text-center panel">
+            <img src="{{ asset('images/3.png') }}" class="round-circle">
+            <h3>Black &amp; White Print Out</h3>
+            <p>Click the Image for Fill In the Blank Or Download for Decorah Iowa</p>
+            <div><a class="btn btn-primary" href="https://drive.google.com/file/d/1C8_KtU5ZoMynzEDn21gXRlqieiXn4jkH/view?usp=sharing">DOWNLOAD</a></div>
+        </div>
+    </div>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        © 2019 - PenPals For Yang - All Rights Reserved
+    </div>
+</footer>
+
+
+</body>
 </html>
