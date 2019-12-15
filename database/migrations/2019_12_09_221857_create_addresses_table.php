@@ -1,5 +1,6 @@
 <?php
 
+use App\AddressStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('penpal_id')->default(0)->index();
-            $table->boolean('valid')->default(false);
+            $table->unsignedSmallInteger('status')->default(AddressStatus::Unverified);
             $table->string('address_number');
             $table->string('street');
             $table->string('building')->nullable();

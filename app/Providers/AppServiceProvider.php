@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Doctrine\DBAL\Schema\Index;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\ServiceProvider;
 use Schema;
@@ -41,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
                     $column
                 );
                 $result = $connection->selectOne($query);
-                $constraint = new \Doctrine\DBAL\Schema\Index($result->name, [$column]);
+                $constraint = new Index($result->name, [$column]);
                 $connection->getDoctrineSchemaManager()->dropConstraint($constraint, $this->getTable());
             }
         });
