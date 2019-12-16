@@ -41,7 +41,7 @@ class MellisaVerificationExport extends Command
      */
     public function handle()
     {
-        $max = ceil(Address::count() / $this->batchSize);
+        $max = floor(Address::count() / $this->batchSize);
 
         for ($batch = 0; $batch <= $max; $batch++) {
             $this->info("Exporting $batch of $max");

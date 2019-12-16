@@ -3,11 +3,8 @@
 namespace App\Exports;
 
 use App\Address;
-use App\AddressStatus;
-use Illuminate\Database\Query\Builder;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
@@ -27,10 +24,10 @@ class MelissaVerificationAddressExport implements FromCollection, WithMapping, W
      */
     public function collection()
     {
-        $offset = ($this->batch) * 500;
+        $offset = ($this->batch) * 499;
 
         return Address::query()
-            ->limit(500)
+            ->limit(499)
             ->offset($offset)
 //            ->where('status', AddressStatus::Unverified)
             ->orderBy('id')
