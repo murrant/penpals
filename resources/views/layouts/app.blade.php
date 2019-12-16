@@ -40,13 +40,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
+                            @if(config('penpals.registration.open'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">@lang('Sign Up')</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">@lang('Sign Up')</a>
+                                    </li>
+                                @endif
                             @endif
                         @else
                             <li class="nav-item dropdown">
@@ -75,6 +77,12 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">© 2019 - PenPals For Yang - All Rights Reserved</span>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
