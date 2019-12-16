@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\PenpalRole;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('manage-penpals', function ($user) {
+            return $user->role == PenpalRole::Admin;
+        });
+
+        Gate::define('approve-requests', function ($user) {
+            return $user->role == PenpalRole::Moderator || $user->role == PenpalRole::Admin;
+        });
     }
 }

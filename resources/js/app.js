@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('address-list', require('./components/AddressList.vue').default);
 Vue.component('address-list-item', require('./components/AddressListItem.vue').default);
 Vue.component('mailing-address', require('./components/MailingAddress.vue').default);
+Vue.component('penpal-list', require('./components/PenpalList.vue').default);
 Vue.component('resident', require('./components/Resident.vue').default);
 
 /**

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
 
 Auth::routes(['reset' => false, 'confirm' => false]);
 Route::get('login/{token}/{remember?}', [
@@ -21,13 +19,13 @@ Route::get('login/{token}/{remember?}', [
     'uses' => 'Auth\LoginController@authenticateEmail'
 ]);
 
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::view('penpals', 'penpals')->middleware(['auth', 'can:manage-penpals'])->name('penpals');
+Route::view('request-queue', 'approvals')->middleware(['auth', 'can:approve-requests'])->name('request-queue');
 
 // frontend access
 Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
-    Route::get('address/request', 'AddressController@additionalAddresses')
-        ->name('address.request');
-//        ->middleware('throttle:1,1');
+    Route::get('address/request', 'AddressController@additionalAddresses')->name('address.request');
     Route::resource('address', 'AddressController')->only(['index', 'update', 'show']);
+    Route::resource('penpals', 'PenpalController')->only(['index', 'update'])->middleware('can:manage-penpals');
 });
