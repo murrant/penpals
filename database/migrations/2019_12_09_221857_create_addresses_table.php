@@ -17,6 +17,7 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('penpal_id')->default(0)->index();
+            $table->string('mak')->nullable();
             $table->unsignedSmallInteger('status')->default(AddressStatus::Unverified);
             $table->string('address_number');
             $table->string('street');
