@@ -19,7 +19,7 @@ class CreateAddressesTable extends Migration
             $table->unsignedBigInteger('penpal_id')->default(0)->index();
             $table->string('mak')->nullable();
             $table->unsignedSmallInteger('status')->default(AddressStatus::Unverified);
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('address_number');
             $table->string('street');
             $table->string('building')->nullable();
