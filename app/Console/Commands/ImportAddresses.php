@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Address;
 use App\Imports\AddressImport;
 use Illuminate\Console\Command;
 use Excel;
@@ -13,7 +14,7 @@ class ImportAddresses extends Command
      *
      * @var string
      */
-    protected $signature = 'import:addresses {file}';
+    protected $signature = 'import:addresses {file} {--json}';
 
     /**
      * The console command description.
@@ -39,6 +40,16 @@ class ImportAddresses extends Command
      */
     public function handle()
     {
-        Excel::import(new AddressImport, $this->argument('file'));
+        $file = $this->argument('file');
+        if ($this->option('json')) {
+            $data = json_decode(file_get_contents($file), true);
+            foreach (array_chunk($data, 100) as $addressChunk) {
+                Address::insert($addressChunk);
+            }
+        } else {
+            Excel::import(new AddressImport, $file);
+        }
+
+        return 0;
     }
 }
