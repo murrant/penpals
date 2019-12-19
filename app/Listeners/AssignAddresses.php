@@ -28,6 +28,5 @@ class AssignAddresses
     public function handle(AddressRequestApproved $event)
     {
         $event->penpal->assignAddressAllotment($event->request->amount);
-        $event->request->delete();
     }
 }

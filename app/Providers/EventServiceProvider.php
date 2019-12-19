@@ -23,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\AddressRequestApproved::class => [
             \App\Listeners\AssignAddresses::class,
+            \App\Listeners\SendApprovalMessage::class,
         ],
         \App\Events\AddressRequestDenied::class => [
             \App\Listeners\SendDenialMessage::class,
