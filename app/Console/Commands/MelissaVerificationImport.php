@@ -21,7 +21,7 @@ class MelissaVerificationImport extends Command
      *
      * @var string
      */
-    protected $signature = 'address:melissaImport {file}';
+    protected $signature = 'address:melissaImport {file} {--offset=0} {--initial=}';
 
     /**
      * The console command description.
@@ -48,11 +48,16 @@ class MelissaVerificationImport extends Command
     public function handle()
     {
         $file = $this->argument('file');
+        $offset = $this->option('offset');
+        $initial = $this->option('initial');
+        $incrementingId = $initial;
 
         $results = json_decode(file_get_contents($file));
 
         foreach ($results as $validatedResult) {
-            $address = Address::findOrFail($validatedResult->Id);
+            $id = $initial ? $incrementingId : ($validatedResult->Id - $offset);
+            $address = Address::findOrFail($id);
+            $incrementingId++;
 
             $address->fill([
                 'address' => $validatedResult->Address,
