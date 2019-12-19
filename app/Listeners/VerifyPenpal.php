@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\Verified;
+use App\Events\PenpalVerified;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,10 +22,10 @@ class VerifyPenpal
     /**
      * Handle the event.
      *
-     * @param  Verified  $event
+     * @param  PenpalVerified  $event
      * @return void
      */
-    public function handle(Verified $event)
+    public function handle(PenpalVerified $event)
     {
         $penpal = $event->penpal;
         $penpal->email_verified_at = Carbon::now();

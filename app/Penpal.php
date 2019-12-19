@@ -13,16 +13,17 @@ class Penpal extends Authenticatable
 
     /**
      * Request and assign additional allotment of addresses
+     * @param int|null $amount
      * @return Address[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      * @throws MaxAddresses
      */
-    public function assignAddressAllotment()
+    public function assignAddressAllotment($amount = null)
     {
         if ($this->addresses()->count() >= config('penpals.addresses.max')) {
             throw new MaxAddresses();
         }
 
-        $addresses = Address::query()->randomAllotment()->get();
+        $addresses = Address::query()->randomAllotment($amount)->get();
         // TODO lock addresses before assigning
         $this->addresses()->saveMany($addresses);
         return $addresses;

@@ -17,6 +17,6 @@ class AddressRequest extends Model
 
     public function penpal()
     {
-        return $this->belongsTo(\App\Penpal::class, 'id', 'penpal_id');
+        return $this->belongsTo(Penpal::class, 'penpal_id', 'id');
     }
 }

@@ -11,7 +11,7 @@
                         </div>
                         <div v-else>
                             All letters sent! :D<br />
-                            <a role="button" class="btn btn-primary" href="/address-request" @click="requestMore">Request More</a>
+                            <a role="button" class="btn btn-primary" href="/address-request/create" @click="requestMore">Request More</a>
                         </div>
                         <address-list-item
                             v-for="address in assigned"

@@ -93,13 +93,13 @@ class Address extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeRandomAllotment($query)
+    public function scopeRandomAllotment($query, $amount)
     {
         return $query
             ->where('penpal_id', 0)
             ->where('status', AddressStatus::Valid)
             ->inRandomOrder()
-            ->limit(config('penpals.addresses.allotment', 5));
+            ->limit($amount ?? config('penpals.addresses.allotment', 5));
     }
 
     public function penpal()

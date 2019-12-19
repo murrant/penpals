@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\EmailLogin;
-use App\Events\Verified;
+use App\Events\PenpalVerified;
 use App\Http\Controllers\Controller;
 use App\Penpal;
 use Auth;
@@ -68,7 +68,7 @@ class LoginController extends Controller
         /** @var Penpal $penpal */
         $penpal = Auth::user();
         if ($penpal && !$penpal->email_verified_at) {
-            event(new Verified($penpal));
+            event(new PenpalVerified($penpal));
         }
 
         return redirect('home');

@@ -2,13 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Address;
-use App\Events\PenpalVerified;
-use Carbon\Carbon;
+use App\Events\AddressRequestApproved;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class AssignInitialAddresses
+class AssignAddresses
 {
     /**
      * Create the event listener.
@@ -23,11 +21,13 @@ class AssignInitialAddresses
     /**
      * Handle the event.
      *
-     * @param PenpalVerified $event
+     * @param object $event
      * @return void
+     * @throws \App\Exceptions\MaxAddresses
      */
-    public function handle(PenpalVerified $event)
+    public function handle(AddressRequestApproved $event)
     {
-        $event->penpal->assignAddressAllotment();
+        $event->penpal->assignAddressAllotment($event->request->amount);
+        $event->request->delete();
     }
 }

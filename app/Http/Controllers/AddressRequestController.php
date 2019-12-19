@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AddressRequest;
+use App\Events\AddressRequestApproved;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -12,10 +13,15 @@ class AddressRequestController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
-        return view('address-request');
+        $this->authorize('approve-requests');
+
+        return view('address-request-list')->with([
+            'requests' => AddressRequest::with('penpal')->get(),
+        ]);
     }
 
     /**
@@ -31,7 +37,7 @@ class AddressRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,47 +71,46 @@ class AddressRequestController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Approve request
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param AddressRequest $addressRequest
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show($id)
+    public function approve(Request $request, AddressRequest $addressRequest)
     {
-        //
+        $this->authorize('approve-requests');
+        $this->validate($request, [
+            'amount' => 'required|integer',
+            'message' => 'nullable|string',
+        ]);
+        $addressRequest->amount = $request->get('amount');
+
+        event(new AddressRequestApproved($addressRequest, $addressRequest->penpal, $request->get('message')));
+
+        return response()->json([]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Deny request
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param AddressRequest $addressRequest
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit($id)
+    public function deny(Request $request, AddressRequest $addressRequest)
     {
-        //
-    }
+        $this->authorize('approve-requests');
+        $this->validate($request, [
+            'amount' => 'required|integer',
+            'message' => 'required|string',
+        ]);
+        $addressRequest->amount = $request->get('amount');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        event(new AddressRequestApproved($addressRequest, $addressRequest->penpal, $request->get('message')));
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json([]);
     }
 }

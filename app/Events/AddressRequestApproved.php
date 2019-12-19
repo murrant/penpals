@@ -2,29 +2,31 @@
 
 namespace App\Events;
 
+use App\AddressRequest;
 use App\Penpal;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Verified
+class AddressRequestApproved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $request;
     public $penpal;
+    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Penpal $penpal)
+    public function __construct(AddressRequest $request, Penpal $penpal, $message)
     {
+        $this->request = $request;
         $this->penpal = $penpal;
+        $this->message = $message;
     }
 
     /**
@@ -34,6 +36,6 @@ class Verified
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('penpal-mgmt');
+        return new PrivateChannel('channel-name');
     }
 }
