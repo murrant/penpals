@@ -38753,10 +38753,10 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c(
-                      "button",
+                      "a",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { role: "button" },
+                        attrs: { role: "button", href: "/address-request" },
                         on: { click: _vm.requestMore }
                       },
                       [_vm._v("Request More")]

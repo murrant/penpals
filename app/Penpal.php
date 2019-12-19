@@ -30,6 +30,11 @@ class Penpal extends Authenticatable
 
     public function addresses()
     {
-        return $this->hasMany(\App\Address::class, 'penpal_id', 'id');
+        return $this->hasMany(Address::class, 'penpal_id', 'id');
+    }
+
+    public function addressRequests()
+    {
+        return $this->hasMany(AddressRequest::class, 'penpal_id', 'id');
     }
 }

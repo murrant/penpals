@@ -22,7 +22,7 @@ Route::get('login/{token}/{remember?}', [
 Route::get('/home', 'HomeController@index')->name('home');
 Route::view('penpals', 'penpals')->middleware(['auth', 'can:manage-penpals'])->name('penpals');
 Route::view('request-queue', 'approvals')->middleware(['auth', 'can:approve-requests'])->name('request-queue');
-
+Route::resource('address-request', 'AddressRequestController');
 // frontend access
 Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
     Route::get('address/request', 'AddressController@additionalAddresses')->name('address.request');
