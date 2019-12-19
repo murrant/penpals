@@ -52,7 +52,7 @@
         <div class="form-row justify-content-center">
             <div class="col-md-6 col-sm-10 align-self-center">
                 <button type="submit" class="btn btn-primary">Request</button>
-                <button type="button" class="btn btn-danger float-right" onClick="window.location='/home'">Cancel</button>
+                <button type="button" class="btn btn-danger float-right" onClick="window.location='/penpals'">Cancel</button>
             </div>
         </div>
     </form>

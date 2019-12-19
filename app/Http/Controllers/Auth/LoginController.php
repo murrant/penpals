@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/penpals';
 
     /**
      * Create a new controller instance.
@@ -71,7 +71,7 @@ class LoginController extends Controller
             event(new PenpalVerified($penpal));
         }
 
-        return redirect('home');
+        return redirect('penpals');
     }
 
     private function buildLoginLink($token, $remember)

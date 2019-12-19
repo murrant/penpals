@@ -19,8 +19,9 @@ Route::get('login/{token}/{remember?}', [
     'uses' => 'Auth\LoginController@authenticateEmail'
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::view('penpals', 'penpals')->middleware(['auth', 'can:manage-penpals'])->name('penpals');
+Route::get('/home', 'PenpalController@index')->name('home');
+Route::get('/penpals', 'PenpalController@index')->name('penpals');
+Route::view('users', 'users')->middleware(['auth', 'can:manage-penpals'])->name('users');
 Route::resource('address-request', 'AddressRequestController')->only(['index', 'create', 'store']);
 Route::post('address-request/{addressRequest}/approve', 'AddressRequestController@approve')->name('address-request.approve');
 Route::post('address-request/{addressRequest}/deny', 'AddressRequestController@deny')->name('address-request.deny');
@@ -29,5 +30,5 @@ Route::get('img/requests/{filename}', 'ImageRequestController@image')->middlewar
 Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
     Route::get('address/request', 'AddressController@additionalAddresses')->name('address.request');
     Route::resource('address', 'AddressController')->only(['index', 'update', 'show']);
-    Route::resource('penpals', 'PenpalController')->only(['index', 'update'])->middleware('can:manage-penpals');
+    Route::resource('users', 'UserController')->only(['index', 'update'])->middleware('can:manage-penpals');
 });

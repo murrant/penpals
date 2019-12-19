@@ -10,14 +10,16 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -53,11 +55,11 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">{{ __('Penpals') }}</a>
+                            <a class="nav-link" href="{{ route('penpals') }}">{{ __('Penpals') }}</a>
                         </li>
                         @can('manage-penpals')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('penpals') }}">{{ __('Users') }}</a>
+                                <a class="nav-link" href="{{ route('users') }}">{{ __('Users') }}</a>
                             </li>
                         @endcan
                         @can('approve-requests')

@@ -13,7 +13,7 @@
             }
         },
         mounted() {
-            axios.get('ajax/penpals')
+            axios.get('ajax/users')
                 .then(response => (this.penpals = response.data.penpals))
         },
     }
