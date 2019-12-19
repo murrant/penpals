@@ -71,7 +71,9 @@ class LoginController extends Controller
             event(new PenpalVerified($penpal));
         }
 
-        return redirect('penpals');
+        $emailLogin->delete(); // only allow one login
+
+        return redirect($this->redirectTo);
     }
 
     private function buildLoginLink($token, $remember)
