@@ -52,9 +52,12 @@
                             @endif
                         @endif
                     @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Penpals') }}</a>
+                        </li>
                         @can('manage-penpals')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('penpals') }}">{{ __('Penpals') }}</a>
+                                <a class="nav-link" href="{{ route('penpals') }}">{{ __('Users') }}</a>
                             </li>
                         @endcan
                         @can('approve-requests')
