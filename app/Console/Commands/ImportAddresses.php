@@ -42,10 +42,12 @@ class ImportAddresses extends Command
     {
         $file = $this->argument('file');
         if ($this->option('json')) {
+            \DB::raw('SET IDENTITY_INSERT addresses ON');
             $data = json_decode(file_get_contents($file), true);
-            foreach (array_chunk($data, 100) as $addressChunk) {
+            foreach (array_chunk($data, 50) as $addressChunk) {
                 Address::insert($addressChunk);
             }
+            \DB::raw('SET IDENTITY_INSERT addresses OFF');
         } else {
             Excel::import(new AddressImport, $file);
         }
