@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="container">
-    @foreach($requests as $request)
+    @forelse($requests as $request)
         <address-request :request="{{ $request }}" :penpal="{{ $request->penpal }}"></address-request>
-    @endforeach
-</div>
+    @empty
+        No current requests :)
+    @endforelse
 @endsection
