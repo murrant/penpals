@@ -7,6 +7,7 @@ use App\Events\PenpalVerified;
 use App\Http\Controllers\Controller;
 use App\Penpal;
 use Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Mail;
@@ -61,19 +62,23 @@ class LoginController extends Controller
 
     public function authenticateEmail($token, $remember = false)
     {
-        $emailLogin = EmailLogin::validFromToken($token);
+        try {
+            $emailLogin = EmailLogin::validFromToken($token);
 
-        Auth::login($emailLogin->penpal, $remember);
+            Auth::login($emailLogin->penpal, $remember);
 
-        /** @var Penpal $penpal */
-        $penpal = Auth::user();
-        if ($penpal && !$penpal->email_verified_at) {
-            event(new PenpalVerified($penpal));
+            /** @var Penpal $penpal */
+            $penpal = Auth::user();
+            if ($penpal && !$penpal->email_verified_at) {
+                event(new PenpalVerified($penpal));
+            }
+
+            $emailLogin->delete(); // only allow one login
+
+            return redirect($this->redirectTo);
+        } catch (ModelNotFoundException $mnfe) {
+            return redirect('login')->withErrors(['message' => 'Login link expired, please try again.']);
         }
-
-        $emailLogin->delete(); // only allow one login
-
-        return redirect($this->redirectTo);
     }
 
     private function buildLoginLink($token, $remember)
