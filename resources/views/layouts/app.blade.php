@@ -44,15 +44,15 @@
                     <!-- Authentication Links -->
                     @guest
                         @if(config('penpals.registration.open'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">@lang('Sign Up')</a>
                                 </li>
                             @endif
                         @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('penpals') }}">{{ __('Penpals') }}</a>

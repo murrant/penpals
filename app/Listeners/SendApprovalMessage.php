@@ -27,7 +27,7 @@ class SendApprovalMessage
     public function handle($event)
     {
         $penpal = $event->penpal;
-        Mail::send('emails.request-approved', ['message' => $event->message], function ($m) use ($penpal) {
+        Mail::send('emails.request-approved', ['note' => $event->message], function ($m) use ($penpal) {
             $m->to($penpal->email)->subject('PenPals for Yang - Request Approved');
         });
         $event->request->delete();
