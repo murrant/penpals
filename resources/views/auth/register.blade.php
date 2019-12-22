@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
+                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="given-name">
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
+                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }} *</label>
 
                             <div class="col-md-6">
                                 <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="family-name">
@@ -58,7 +58,7 @@
 
                             <div class="col-md-6">
                                 <select id="role" name="role" class="form-control" required autocomplete="role">
-                                    <option value="0" @if(old('role') == 0) selected @endif>@lang('Letter Writer')</option>
+                                    <option value="0" @if(old('role', 0) == 0) selected @endif>@lang('Letter Writer')</option>
                                     <option value="1" @if(old('role') == 1) selected @endif>@lang('Researcher')</option>
                                     <option value="2" @if(old('role') == 2) selected @endif>@lang('Party Organizer')</option>
                                 </select>
@@ -87,7 +87,7 @@
 
 
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Mailing Address') }}</label>
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Mailing Address') }} *</label>
 
                             <div class="col-md-6">
                                 <textarea id="address" name="address" class="form-control @error('address') is-invalid @enderror" required autocomplete="address" rows="3">
