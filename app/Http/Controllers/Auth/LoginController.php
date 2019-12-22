@@ -52,7 +52,7 @@ class LoginController extends Controller
         $penpal = Penpal::where('email', $request->input('email'))->firstOrFail();
         $penpal->sendLoginEmail($request->input('remember'));
 
-        return view('auth.login-sent', compact('email'));
+        return view('auth.login-sent', ['email' => $penpal->email]);
     }
 
     public function authenticateEmail($token, $remember = false)
