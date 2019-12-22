@@ -93,6 +93,6 @@ class RegisterController extends Controller
 
 //        $this->guard()->login($user);
 
-        return view('auth.login-sent', ['email' => $user->email]);
+        return view('auth.registered', ['email' => $user->email]);
     }
 }
