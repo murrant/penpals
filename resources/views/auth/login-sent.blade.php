@@ -4,9 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                Login email sent to {{ $email }}
-
-                You can close this window and click the login link from your email.
+                Thank you for registering! You will receive an email with a login link shortly, which is the primary method for you to access your PenPals account.
             </div>
         </div>
     </div>
