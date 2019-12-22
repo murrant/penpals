@@ -1,3 +1,3 @@
-Hello,
+<p>Hello,</p>
 
-Log in to PenPals for Yang here: <a href="{{ $url }}">{{ $url }}</a>
+<p>Log in to PenPals for Yang here: <a href="{{ $url }}">{{ $url }}</a></p>

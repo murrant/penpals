@@ -28,7 +28,7 @@ class SendDenialMessage
     public function handle(AddressRequestDenied $event)
     {
         $penpal = $event->penpal;
-        Mail::send('emails.request-denied', ['message' => $event->message], function ($m) use ($penpal) {
+        Mail::send('emails.request-denied', ['note' => $event->message], function ($m) use ($penpal) {
             $m->to($penpal->email)->subject('PenPals for Yang - Request Denied');
         });
         $event->request->delete();

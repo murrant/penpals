@@ -1,7 +1,7 @@
-Your request has been approved!
+<p>Your request has been approved!</p>
 
-Visit http://penpalsforyang.com/penpals to see your new pen pals.
+<p>Visit http://penpalsforyang.com/penpals to see your new pen pals.</p>
 
-{{ $note  }}
+<p>{{ $note  }}</p>
 
-PenPals for Yang
+<p>PenPals for Yang</p>

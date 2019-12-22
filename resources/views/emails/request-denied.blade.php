@@ -1,5 +1,5 @@
-We are sorry, but your request has been denied.
+<p>We are sorry, but your request has been denied.</p>
 
-{{ $message }}
+<p>{{ $note }}</p>
 
-PenPals for Yang
+<p>PenPals for Yang</p>
