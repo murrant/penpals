@@ -4,14 +4,28 @@ namespace App;
 
 use App\Exceptions\MaxAddresses;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\Queue\Factory as Queue;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notifiable;
 use Mail;
 
-class Penpal extends Authenticatable implements MustVerifyEmail
+class Penpal extends Authenticatable
 {
     use Notifiable;
     protected $fillable = ['email', 'first_name', 'last_name', 'phone', 'role', 'address'];
+    protected $appends = ['name'];
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 
     /**
      * Request and assign additional allotment of addresses
@@ -46,7 +60,8 @@ class Penpal extends Authenticatable implements MustVerifyEmail
         $url = $this->buildLoginLink($remember);
 
         Mail::send('auth.emails.email-login', ['url' => $url], function ($m) {
-            $m->to($this->email)->subject('PenPals for Yang Login');
+            /** @var Mailable $m */
+            $m->to($this->email, $this->name)->subject('PenPals for Yang Login');
         });
     }
 

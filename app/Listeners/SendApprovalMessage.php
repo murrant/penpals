@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 use Mail;
 
@@ -27,9 +28,11 @@ class SendApprovalMessage
     public function handle($event)
     {
         $penpal = $event->penpal;
+
         Mail::send('emails.request-approved', ['note' => $event->message], function ($m) use ($penpal) {
-            $m->to($penpal->email)->subject('PenPals for Yang - Request Approved');
+            $m->to($penpal->email, $penpal->name)->subject('PenPals for Yang - Request Approved');
         });
+
         $event->request->delete();
     }
 }
