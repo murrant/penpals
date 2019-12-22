@@ -48,14 +48,9 @@ class LoginController extends Controller
     {
         $this->validate($request, ['email' => 'required|email|exists:penpals']);
 
-        $email = $request->input('email');
-        $emailLogin = EmailLogin::createForEmail($email);
-
-        $url = $this->buildLoginLink($emailLogin->token, $request->input('remember'));
-
-        Mail::send('auth.emails.email-login', ['url' => $url], function ($m) use ($email) {
-            $m->to($email)->subject('PenPals for Yang Login');
-        });
+        /** @var Penpal $penpal */
+        $penpal = Penpal::where('email', $request->input('email'))->firstOrFail();
+        $penpal->sendLoginEmail($request->input('remember'));
 
         return view('auth.login-sent', compact('email'));
     }
@@ -79,15 +74,5 @@ class LoginController extends Controller
         } catch (ModelNotFoundException $mnfe) {
             return redirect('login')->withErrors(['message' => 'Login link expired, please try again.']);
         }
-    }
-
-    private function buildLoginLink($token, $remember)
-    {
-        $params = ['token' => $token];
-        if ($remember) {
-            $params['remember'] = 'remember';
-        }
-
-        return route('auth.email-authenticate', $params);
     }
 }
