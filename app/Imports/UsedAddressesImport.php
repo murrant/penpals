@@ -35,7 +35,7 @@ class UsedAddressesImport implements ToCollection, WithHeadingRow
             }
 
 
-            $existing = Address::where('mak', $row['mak'])
+            $existing = Address::where('mak', 'like', $row['mak'])
                 ->first();
 
             if (!$existing) {
