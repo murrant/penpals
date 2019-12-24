@@ -28,13 +28,21 @@ class UsedAddressesImport implements ToCollection, WithHeadingRow
         $added = 0;
         // HouseNumber,Street,StreetSuffix,City,State,Zip,StreetName,Address,StateName,Zip4,AddressType,RBDI,Fips,County,ResultCode,MAK
         foreach ($rows as $row) {
+            $number = $row['housenumber'];
+            $unit = '';
+            if (Str::contains($number, ' ')) {
+                list($number, $unit) = explode(' ', $number, 2);
+            }
+
+
             $existing = Address::where('mak', $row['mak'])
                 ->first();
 
             if (!$existing) {
-                $existing = Address::where(function ($query) use ($row) {
+                $existing = Address::where(function ($query) use ($row, $number, $unit) {
                     /** @var Builder $query */
-                    $query->where('address_number', $row['housenumber'])
+                    $query->where('address_number', $number)
+                        ->where('unit', 'like', $unit)
                         ->where('street', 'like', ($row['streetname'] ?: $row['street']) . '%')
                         ->where('zip', $row['zip']);
                 })->first();
@@ -58,12 +66,6 @@ class UsedAddressesImport implements ToCollection, WithHeadingRow
                     echo '.';
                 }
             } else {
-                $number = $row['housenumber'];
-                $unit = '';
-                if (Str::contains($number, ' ')) {
-                    list($number, $unit) = explode(' ', $number, 2);
-                }
-
                 Address::create([
                     'mak' => $row['mak'],
                     'status' => AddressStatus::Pending,
