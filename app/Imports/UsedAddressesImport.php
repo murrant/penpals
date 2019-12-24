@@ -41,7 +41,7 @@ class UsedAddressesImport implements ToCollection, WithHeadingRow
             if (!$existing) {
                 $existing = Address::where(function ($query) use ($row, $number, $unit) {
                     /** @var Builder $query */
-                    $query->where('address_number', $number)
+                    $query->where('address_number', 'like', $number)
                         ->where('unit', 'like', $unit)
                         ->where('street', 'like', ($row['streetname'] ?: $row['street']) . '%')
                         ->where('zip', $row['zip']);
