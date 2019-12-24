@@ -9,8 +9,8 @@ use Illuminate\Database\Query\Builder;
 class Address extends Model
 {
     protected $fillable = [
-        'status',
         'mak',
+        'status',
         'address',
         'address_number',
         'street',
@@ -25,6 +25,8 @@ class Address extends Model
         'zip',
         'zip4',
         'address_type',
+        'assigned',
+        'completed',
     ];
 
     public static function boot()

@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Address;
+use App\AddressStatus;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -12,10 +13,12 @@ class MelissaVerificationAddressExport implements FromCollection, WithMapping, W
 {
     use Exportable;
     private $batch;
+    private $status;
 
-    public function __construct($batch)
+    public function __construct($batch, $status = null)
     {
         $this->batch = $batch;
+        $this->status = $status;
     }
 
 
@@ -26,12 +29,15 @@ class MelissaVerificationAddressExport implements FromCollection, WithMapping, W
     {
         $offset = ($this->batch) * 499;
 
-        return Address::query()
+        $query = Address::query()
             ->limit(499)
             ->offset($offset)
-//            ->where('status', AddressStatus::Unverified)
-            ->orderBy('id')
-            ->get();
+            ->orderBy('id');
+        if ($this->status !== null) {
+            $query->where('status', AddressStatus::Pending);
+        }
+
+        return $query->get();
     }
 
     /**

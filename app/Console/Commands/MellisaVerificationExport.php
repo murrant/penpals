@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Address;
+use App\AddressStatus;
 use App\Exports\MelissaVerificationAddressExport;
 use Illuminate\Console\Command;
 
@@ -15,7 +16,7 @@ class MellisaVerificationExport extends Command
      *
      * @var string
      */
-    protected $signature = 'address:melissaExport';
+    protected $signature = 'address:melissaExport {--status=}';
 
     /**
      * The console command description.
@@ -41,12 +42,24 @@ class MellisaVerificationExport extends Command
      */
     public function handle()
     {
-        $max = floor(Address::count() / $this->batchSize);
+        $status = (int)$this->option('status');
+        $query = Address::query();
+        if ($status !== null) {
+            $query->where('status', AddressStatus::Pending);
+        }
+
+        $max = floor($query->count() / $this->batchSize);
 
         for ($batch = 0; $batch <= $max; $batch++) {
             $this->info("Exporting $batch of $max");
-            $file = 'melissa/iowa_' . $batch . '.csv';
-            (new MelissaVerificationAddressExport($batch))->store($file);
+
+            $file = 'melissa/iowa_';
+            if ($status !== null) {
+                $file .= strtolower(AddressStatus::toString($status)) . '_';
+            }
+            $file .= $batch . '.csv';
+
+            (new MelissaVerificationAddressExport($batch, $status))->store($file);
         }
 
         return 0;
