@@ -7,6 +7,7 @@ use App\AddressStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -57,11 +58,18 @@ class UsedAddressesImport implements ToCollection, WithHeadingRow
                     echo '.';
                 }
             } else {
+                $number = $row['housenumber'];
+                $unit = '';
+                if (Str::contains($number, ' ')) {
+                    list($number, $unit) = explode(' ', $number, 2);
+                }
+
                 Address::create([
                     'mak' => $row['mak'],
                     'status' => AddressStatus::Pending,
                     'address' => $row['address'],
-                    'address_number' => $row['housenumber'],
+                    'address_number' => $number,
+                    'unit' => $unit,
                     'street' => ucwords(strtolower($row['streetname'] ?: ($row['street'] . ' ' . $row['streetsuffix']))),
                     'city' => ucwords(strtolower($row['city'])),
                     'county' => ucwords(strtolower($row['county'])),
