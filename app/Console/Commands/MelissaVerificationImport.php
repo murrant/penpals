@@ -59,12 +59,18 @@ class MelissaVerificationImport extends Command
             $address = Address::findOrFail($id);
             $incrementingId++;
 
+            $zip = $validatedResult->PostalCode;
+            $zip4 = $validatedResult->ZIP4;
+            if (Str::contains($zip4, '-')) {
+                list($zip, $zip4) = explode('-', $zip4);
+            }
+
             $address->fill([
                 'address' => $validatedResult->Address,
                 'city' => $validatedResult->City,
                 'state' => $validatedResult->State,
-                'zip' => $validatedResult->PostalCode,
-                'zip4' => $validatedResult->ZIP4,
+                'zip' => $zip,
+                'zip4' => $zip4,
                 'county' => $validatedResult->County,
                 'status' => $this->checkResult($validatedResult),
                 'mak' => $validatedResult->MAK,
