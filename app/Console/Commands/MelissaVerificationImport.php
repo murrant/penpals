@@ -13,6 +13,7 @@ class MelissaVerificationImport extends Command
         'valid' => 0,
         'invalid' => 0,
         'undeliverable' => 0,
+        'apt missing' => 0,
         'skipped' => 0,
     ];
 
@@ -79,7 +80,7 @@ class MelissaVerificationImport extends Command
         }
 
         foreach($this->stats as $stat => $count) {
-            $this->info(ucfirst($stat) . ': ' . $count);
+            $this->info(ucwords($stat) . ': ' . $count);
         }
         $total = count($results);
         $this->info("Result: " . $this->stats['valid'] . '/' . $total . ' (' . number_format($this->stats['valid']/$total*100, 2) . '%)' );
@@ -97,6 +98,12 @@ class MelissaVerificationImport extends Command
     private function checkResult($result): int
     {
         $codes = explode(',', $result->ResultCode);
+
+        if (in_array('AS09', $codes)) {
+            $this->error("Missing Suite or Apartment # ($result->Address): $result->ResultDesc");
+            $this->stats['apt missing']++;
+            return AddressStatus::Invalid;
+        }
 
         if (in_array('AS01', $codes)) {
             if (!empty(array_intersect($codes, ['AS02', 'AS03', 'AS16', 'AS17']))) {
