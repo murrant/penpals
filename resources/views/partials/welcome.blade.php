@@ -65,10 +65,10 @@ If you want to do a print out of how much the freedom dividend would put into th
 <table style="margin-top: -65px;">
     <tr>
         <td valign="bottom">
-            <img width="271" height="196" src="{{ isset($message) ? $message->embed(public_path('/images/example1.jpg')) : asset('images/example1.jpg') }}">
+            <img width="271" height="197" src="{{ isset($message) ? $message->embed(public_path('/images/example1_small.jpg')) : asset('images/example1.jpg') }}">
         </td>
         <td valign="bottom">
-            <img width="212" height="273" src="{{ isset($message) ? $message->embed(public_path('/images/example2.jpg')) : asset('images/example2.jpg') }}">
+            <img width="212" height="274" src="{{ isset($message) ? $message->embed(public_path('/images/example2_small.jpg')) : asset('images/example2.jpg') }}">
         </td>
     </tr>
 </table>
