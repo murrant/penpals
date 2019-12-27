@@ -11,7 +11,8 @@
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'frontpage')->name('frontpage');
+Route::view('/welcome', 'welcome')->name('welcome');
 
 Auth::routes(['reset' => false, 'confirm' => false]);
 Route::get('login/{token}/{remember?}', [

@@ -55,13 +55,13 @@ class Penpal extends Authenticatable
         return $this->hasMany(AddressRequest::class, 'penpal_id', 'id');
     }
 
-    public function sendLoginEmail($remember = false, $view = 'auth.emails.email-login')
+    public function sendLoginEmail($remember = false, $view = 'auth.emails.email-login', $subject = 'PenPals for Yang Login')
     {
         $url = $this->buildLoginLink($remember);
 
-        Mail::send('auth.emails.email-login', ['url' => $url], function ($m) {
+        Mail::send($view, ['url' => $url], function ($m) use ($subject) {
             /** @var Mailable $m */
-            $m->to($this->email, $this->name)->subject('PenPals for Yang Login');
+            $m->to($this->email, $this->name)->subject($subject);
         });
     }
 

@@ -27,6 +27,6 @@ class SendVerificationEmail
     {
         /** @var Penpal $penpal */
         $penpal = $event->user;
-        $penpal->sendLoginEmail(false, 'auth.emails.registered');
+        $penpal->sendLoginEmail(false, 'auth.emails.registered', 'Welcome to PenPals for Yang!');
     }
 }

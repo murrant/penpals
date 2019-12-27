@@ -1,7 +1,11 @@
 <html lang="en">
-<body>
-<p>Thank you for registering,</p>
+<body style="padding: 15px">
 
-<p>To get your list of addresses, click here <a href="{{ $url }}">{{ $url }}</a></p>
+@section('penpal_list')
+    <h3><a href="{{ $url }}">Click here to get your list of addresses</a></h3>
+@endsection
+
+@include('partials.welcome')
+
 </body>
 </html>
