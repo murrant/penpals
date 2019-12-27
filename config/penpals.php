@@ -6,6 +6,6 @@ return [
         'max' => 250,
     ],
     'registration' => [
-        'open' => false,
+        'open' => true,
     ],
 ];
