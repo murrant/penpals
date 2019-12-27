@@ -72,7 +72,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'phone' => $data['phone'],
+            'phone' => PhoneNumber::isValidFormat($data['phone']) ? PhoneNumber::make($data['phone'])->formatE164() : $data['phone'],
             'role' => 0,
             'address' => $data['address'],
         ]);
