@@ -3,9 +3,7 @@
 namespace App;
 
 use App\Exceptions\MaxAddresses;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Contracts\Queue\Factory as Queue;
+use Cache;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notifiable;
@@ -39,9 +37,23 @@ class Penpal extends Authenticatable
             throw new MaxAddresses();
         }
 
+        // lock addresses so they aren't double assigned.
+//        $locks = collect();
         $addresses = Address::query()->randomAllotment($amount)->get();
-        // TODO lock addresses before assigning
+//        ->filter(function ($address) use ($locks) {
+//            $lock = Cache::lock('address_assign_' . $address->id, 10);
+//            if ($lock->get()) {
+//                $locks->push($lock);
+//                return true;
+//            }
+//
+//            return false;
+//        });
+
         $this->addresses()->saveMany($addresses);
+
+//        $locks->each->release();
+
         return $addresses;
     }
 
