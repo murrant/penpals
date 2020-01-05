@@ -15,8 +15,8 @@ class CreateEmailLoginsTable extends Migration
     {
         Schema::create('email_logins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email')->index();
-            $table->string('token')->index();
+            $table->string('email', 150)->index();
+            $table->string('token', 100)->index();
             $table->timestamps();
         });
     }

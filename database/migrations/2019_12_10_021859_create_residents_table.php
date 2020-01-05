@@ -19,7 +19,7 @@ class CreateResidentsTable extends Migration
             $table->string('name');
             $table->string('first_name');
             $table->string('last_name');
-            $table->json('alternate_names')->nullable();
+            $table->text('alternate_names')->nullable();
             $table->string('age_range')->nullable();
             $table->string('gender')->nullable();
             $table->string('link_to_address_start_date')->nullable();
