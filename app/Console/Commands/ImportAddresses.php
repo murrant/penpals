@@ -42,13 +42,22 @@ class ImportAddresses extends Command
     public function handle()
     {
         $file = $this->argument('file');
+        $connection = config('database.default');
+        $driver = config("database.connections.{$connection}.driver");
+
         if ($this->option('json')) {
-            DB::unprepared('SET IDENTITY_INSERT addresses ON');
+            if ($driver == 'sqlsrv') {
+                DB::unprepared('SET IDENTITY_INSERT addresses ON');
+            }
+
             $data = json_decode(file_get_contents($file), true);
             foreach (array_chunk($data, 50) as $addressChunk) {
                 Address::insert($addressChunk);
             }
-            DB::unprepared('SET IDENTITY_INSERT addresses OFF');
+
+            if ($driver == 'sqlsrv') {
+                DB::unprepared('SET IDENTITY_INSERT addresses OFF');
+            }
         } else {
             Excel::import(new AddressImport, $file);
         }
