@@ -100,6 +100,7 @@ class Address extends Model
         return $query
             ->where('penpal_id', 0)
             ->where('status', AddressStatus::Valid)
+            ->whereNull('completed')
             ->inRandomOrder()
             ->limit($amount ?? config('penpals.addresses.allotment', 5));
     }
