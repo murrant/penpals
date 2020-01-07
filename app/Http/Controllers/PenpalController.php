@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Penpal;
 use Auth;
-use Illuminate\Http\Request;
+use PDF;
 
 class PenpalController extends Controller
 {
@@ -24,6 +25,23 @@ class PenpalController extends Controller
      */
     public function index()
     {
-        return view('penpals');
+        $printColumns = 2;
+        $penpal = Auth::user();
+        $addresses = $penpal->addresses()->whereNull('completed')->get();
+
+        return view('penpals', compact('penpal', 'addresses', 'printColumns'));
+    }
+
+    public function print()
+    {
+        $columns = 2;
+
+        /** @var Penpal $penpal */
+        $penpal = Auth::user();
+        $addresses = $penpal->addresses()->whereNull('completed')->get()->chunk($columns);
+
+        /** @var \Barryvdh\DomPDF\PDF $pdf */
+        $pdf = PDF::loadView('pdf.penpals', compact('penpal', 'addresses'));
+        return $pdf->stream('penpals.pdf');
     }
 }

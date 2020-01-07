@@ -32,7 +32,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm non-printable">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -104,7 +104,7 @@
         @yield('content')
     </main>
 
-    <footer class="footer">
+    <footer class="footer non-printable">
         <div class="container">
             <span class="text-muted">© 2019 - PenPals For Yang - All Rights Reserved</span>
         </div>

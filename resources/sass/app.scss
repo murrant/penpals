@@ -40,3 +40,13 @@ body {
     background-color: #f5f5f5;
     text-align: center;
 }
+
+@media screen {
+    .printable { display: none; }
+    .non-printable { display: block; }
+}
+
+@media print {
+    .printable { display: block; }
+    .non-printable { display: none; }
+}

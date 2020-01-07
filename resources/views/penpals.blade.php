@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
-        <address-list></address-list>
+    <div class="non-printable">
+        <address-list addresses="{{ $addresses }}"></address-list>
+    </div>
+
+    <div class="printable">
+        @include('printables.penpals')
     </div>
 @endsection
