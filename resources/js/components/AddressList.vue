@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center non-printable">
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="card">
                     <div class="card-header">Assigned PenPals ({{ assigned.length }})</div>
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center mt-3">
+        <div class="row justify-content-center mt-3 non-printable">
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="card" >
                     <div class="card-header">Completed ({{ completed.length }})</div>
@@ -42,6 +42,18 @@
                 </div>
             </div>
         </div>
+        <div class="printable">
+            <h3>Penpals for: {{ this.name }}</h3>
+
+            <table>
+                <tr v-for="row in chunk(this.assigned, 2)">
+                    <td v-for="item in row" style="padding: 30px; font-size: 1.3em">
+                        <mailing-address :address="item" />
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
 </template>
 
@@ -49,14 +61,14 @@
     export default {
         name: "AddressList",
         props: {
-            "initAddresses": {
-                type: Array,
+            "name": {
+                type: String,
                 required: true
             }
         },
         data() {
             return {
-                "addresses": Vue.util.extend([], this.initAddresses)
+                "addresses": []
             }
         },
         mounted() {
@@ -89,6 +101,11 @@
                 axios.get('ajax/address/request')
                     .then(response => (this.addresses = response.data.addresses))
                     .catch(error => toastr.error(error.response.data.message))
+            },
+            chunk (arr, size) {
+                return arr.reduce((chunks, el, i) => (i % size
+                    ? chunks[chunks.length - 1].push(el)
+                    : chunks.push([el])) && chunks, []);
             }
         }
     }
@@ -98,5 +115,9 @@
     .list-header {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    table {
+        width: 100%;
     }
 </style>
