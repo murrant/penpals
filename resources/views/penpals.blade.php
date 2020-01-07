@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="non-printable">
-        <address-list addresses="{{ $addresses }}"></address-list>
+        <address-list :init-addresses="{{ $addresses }}"></address-list>
     </div>
 
     <div class="printable">

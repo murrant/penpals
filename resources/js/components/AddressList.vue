@@ -48,9 +48,15 @@
 <script>
     export default {
         name: "AddressList",
+        props: {
+            "initAddresses": {
+                type: Array,
+                required: true
+            }
+        },
         data() {
             return {
-                "addresses": []
+                "addresses": Vue.util.extend([], this.initAddresses)
             }
         },
         mounted() {
