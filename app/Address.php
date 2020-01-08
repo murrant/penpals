@@ -107,7 +107,7 @@ class Address extends Model
 
     public function penpal()
     {
-        return $this->belongsTo(\App\Penpal::class, 'id', 'penpal_id');
+        return $this->belongsTo(\App\Penpal::class, 'penpal_id', 'id');
     }
 
     public function residents()
