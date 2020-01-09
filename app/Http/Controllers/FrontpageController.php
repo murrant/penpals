@@ -15,7 +15,8 @@ class FrontpageController extends Controller
     public function __invoke()
     {
         $data = [
-            'totalSent' => $this->getTotalSent(),
+            'completedAddresses' => $this->getCompletedAddresses(),
+            'validAddresses' => $this->getValidAddresses(),
             'totalPenpals' => $this->getTotalPenpals(),
             'topFive' => $this->getTopFive(),
         ];
@@ -23,12 +24,17 @@ class FrontpageController extends Controller
         return view('frontpage', $data);
     }
 
-    private function getTotalSent()
+    private function getCompletedAddresses()
     {
-        return Cache::remember('frontpage:totalSent', $this->cacheTime, function () {
-            $completed = Address::query()->whereNotNull('completed')->count();
-            $valid = Address::query()->where('status', AddressStatus::Valid)->count();
-           return number_format($completed / $valid * 100, 0);
+        return Cache::remember('frontpage:completedAddresses', $this->cacheTime, function () {
+            return Address::query()->whereNotNull('completed')->count();
+        });
+    }
+
+    private function getValidAddresses()
+    {
+        return Cache::remember('frontpage:validAddresses', $this->cacheTime, function () {
+            return Address::query()->where('status', AddressStatus::Valid)->count();
         });
     }
 

@@ -14,7 +14,10 @@
             </div>
             <div class="col-4 text-center">
                 <h3>@lang('Letters Sent')</h3>
-                <div class="display-4">{{ $totalSent }}%</div>
+                <div class="display-4"
+                @can('approve-requests') title="{{ $completedAddresses }} / {{ $validAddresses }}" @endcan
+                >{{ number_format($completedAddresses / $validAddresses * 100, 0) }}%</div>
+
             </div>
             <div class="col-3 text-center">
                 <h3>@lang('Top Penpals')</h3>
