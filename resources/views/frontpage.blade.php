@@ -7,8 +7,27 @@
         </div>
     </div>
     <div class="container">
+        <div class="row m-2">
+            <div class="offset-1 col-3 text-center">
+                <h3>@lang('Penpals')</h3>
+                <div class="display-4">{{ $totalPenpals }}</div>
+            </div>
+            <div class="col-4 text-center">
+                <h3>@lang('Letters Sent')</h3>
+                <div class="display-4">{{ $totalSent }}%</div>
+            </div>
+            <div class="col-3 text-center">
+                <h3>@lang('Top Penpals')</h3>
+
+                @foreach($topFive as $name => $count)
+                <div class="row">
+                    <div class="col text-right">{{ $count }}</div><div class="col text-left">{{ $name }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
         <div class="row mt-4">
-            <h2>Volunteer Info</h2>
+            <h2>@lang('Volunteer Info')</h2>
         </div>
         <div class="col"><hr></div>
         <div class="row">

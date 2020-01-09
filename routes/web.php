@@ -11,7 +11,7 @@
 |
 */
 
-Route::view('/', 'frontpage')->name('frontpage');
+Route::get('/', 'FrontpageController')->name('frontpage');
 Route::view('/welcome', 'welcome')->name('welcome');
 
 Auth::routes(['reset' => false, 'confirm' => false]);
