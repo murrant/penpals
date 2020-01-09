@@ -12,6 +12,7 @@ use Illuminate\Database\Query\Builder;
 class FrontpageController extends Controller
 {
     private $cacheTime = 300;
+    private $topPenpals = 4;
 
     public function __invoke()
     {
@@ -54,7 +55,7 @@ class FrontpageController extends Controller
                 return $query->whereNotNull('completed');
             }])
                 ->orderBy('addresses_count', 'desc')
-                ->limit(3)
+                ->limit($this->topPenpals)
                 ->get()
                 ->pluck('addresses_count', 'first_name')
                 ->toArray();

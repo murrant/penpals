@@ -14,19 +14,18 @@
             </div>
             <div class="col-4 text-center">
                 <h3>@lang('Letters Sent')</h3>
-                <div class="display-4"
-                     @can('approve-requests') title="{{ $completedAddresses }} / {{ $validAddresses }}" @endcan
-                >
+                <div class="display-4">
                     {{ number_format($completedAddresses / $validAddresses * 100, 0) }}%
                 </div>
+                <h4><strong>{{ $completedAddresses }} / {{ $validAddresses }}</strong></h4>
             </div>
             <div class="col-3 text-center">
                 <h3>@lang('Top Penpals')</h3>
 
                 @foreach($topFive as $name => $count)
                     <div class="row">
-                        <div class="col text-right">{{ $count }}</div>
-                        <div class="col text-left">{{ $name }}</div>
+                        <div class="col text-right"><strong>{{ $count }}</strong></div>
+                        <div class="col text-left"><strong>{{ $name }}</strong></div>
                     </div>
                 @endforeach
             </div>
