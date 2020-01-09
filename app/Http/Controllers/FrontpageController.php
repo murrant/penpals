@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\AddressStatus;
 use App\Penpal;
+use App\PenpalRole;
 use Cache;
 use Illuminate\Database\Query\Builder;
 
@@ -41,7 +42,7 @@ class FrontpageController extends Controller
     private function getTotalPenpals()
     {
         return Cache::remember('frontpage:totalPenpals', $this->cacheTime, function () {
-            return Penpal::count();
+            return Penpal::where('role', PenpalRole::Writer)->count();
         });
     }
 
