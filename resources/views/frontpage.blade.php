@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-sm-8 logo">
+        <div class="col-md-8 col-sm-10 col-xs-12 logo">
             <img class="img-fluid" src="{{ asset('images/penpalsforyang.jpeg') }}">
         </div>
     </div>
