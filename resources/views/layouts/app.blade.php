@@ -73,7 +73,7 @@
                         @endcan
                         @can('approve-requests')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('address-request.index') }}">{{ __('Approve Requests') }}</a>
+                                <a class="nav-link" href="{{ route('address-request.index') }}">{{ __('Approve Requests') }} ({{ \App\AddressRequest::count() }})</a>
                             </li>
                         @endcan
 
