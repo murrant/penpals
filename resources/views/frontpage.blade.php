@@ -15,24 +15,28 @@
             <div class="col-4 text-center">
                 <h3>@lang('Letters Sent')</h3>
                 <div class="display-4"
-                @can('approve-requests') title="{{ $completedAddresses }} / {{ $validAddresses }}" @endcan
-                >{{ number_format($completedAddresses / $validAddresses * 100, 0) }}%</div>
-
+                     @can('approve-requests') title="{{ $completedAddresses }} / {{ $validAddresses }}" @endcan
+                >
+                    {{ number_format($completedAddresses / $validAddresses * 100, 0) }}%
+                </div>
             </div>
             <div class="col-3 text-center">
                 <h3>@lang('Top Penpals')</h3>
 
                 @foreach($topFive as $name => $count)
-                <div class="row">
-                    <div class="col text-right">{{ $count }}</div><div class="col text-left">{{ $name }}</div>
-                </div>
+                    <div class="row">
+                        <div class="col text-right">{{ $count }}</div>
+                        <div class="col text-left">{{ $name }}</div>
+                    </div>
                 @endforeach
             </div>
         </div>
         <div class="row mt-4">
             <h2>@lang('Volunteer Info')</h2>
         </div>
-        <div class="col"><hr></div>
+        <div class="col">
+            <hr>
+        </div>
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 justify-content-center text-center panel">
                 <img src="{{ asset('images/mail.png') }}">
