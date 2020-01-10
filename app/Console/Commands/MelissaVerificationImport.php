@@ -56,9 +56,13 @@ class MelissaVerificationImport extends Command
         $results = json_decode(file_get_contents($file));
 
         foreach ($results as $validatedResult) {
-            $id = $initial ? $incrementingId : ($validatedResult->Id - $offset);
+            if ($initial) {
+                $id = $incrementingId;
+                $incrementingId++;
+            } else {
+                $id = isset($validatedResult->ID) ? $validatedResult->ID : $validatedResult->Id;
+            }
             $address = Address::findOrFail($id);
-            $incrementingId++;
 
             $zip = $validatedResult->PostalCode;
             $zip4 = $validatedResult->ZIP4;
