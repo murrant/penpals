@@ -19,7 +19,7 @@
                 </div>
                 <h4><strong>{{ $completedAddresses }} / {{ $validAddresses }}</strong></h4>
             </div>
-            <div class="col-3 text-center" style="display: none">
+            <div class="col-3 text-center">
                 <h3>@lang('Top Penpals')</h3>
 
                 @foreach($topFive as $name => $count)
