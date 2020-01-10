@@ -7,19 +7,19 @@
         </div>
     </div>
     <div class="container">
-        <div class="row m-2 justify-content-center">
-            <div class="col-3 text-center">
+        <div class="row justify-content-center">
+            <div class="col-sm-3 col-xs-4 mt-4 text-center">
                 <h3>@lang('Penpals')</h3>
                 <div class="display-4">{{ $totalPenpals }}</div>
             </div>
-            <div class="col-3 text-center">
+            <div class="col-sm-3 col-xs-4 mt-4 text-center">
                 <h3>@lang('Letters Sent')</h3>
                 <div class="display-4">
-                    {{ number_format($completedAddresses / $validAddresses * 100, 0) }}%
+                    {{ number_format($completedAddresses / (($validAddresses * 100) || 1), 0) }}%
                 </div>
-                <h4><strong>{{ $completedAddresses }} / {{ $validAddresses }}</strong></h4>
+                <h4><strong>{{ $completedAddresses }} / {{ $validAddresses || 1}}</strong></h4>
             </div>
-            <div class="col-3 text-center">
+            <div class="col-sm-3 col-xs-4 mt-4 text-center">
                 <h3>@lang('Top Penpals')</h3>
 
                 @foreach($topFive as $name => $count)
@@ -30,7 +30,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row mt-4 ml-3">
             <h2>@lang('Volunteer Info')</h2>
         </div>
         <div class="col">
