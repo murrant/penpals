@@ -25,6 +25,11 @@
         </div>
         <div class="row justify-content-center mt-3 non-printable">
             <div class="col-lg-8 col-md-10 col-sm-12">
+                If you would like to request more addresses, take a picture of your letters before you mail them!
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="card" >
                     <div class="card-header">Completed ({{ completed.length }})</div>
                     <div class="card-body" v-if="completed.length > 0">
