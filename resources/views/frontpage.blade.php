@@ -15,9 +15,9 @@
             <div class="col-sm-3 col-xs-4 mt-4 text-center">
                 <h3>@lang('Letters Sent')</h3>
                 <div class="display-4">
-                    {{ number_format($completedAddresses / (($validAddresses * 100) || 1), 0) }}%
+                    {{ number_format($completedAddresses / $validAddresses * 100, 0) }}%
                 </div>
-                <h4><strong>{{ $completedAddresses }} / {{ $validAddresses || 1}}</strong></h4>
+                <h4><strong>{{ $completedAddresses }} / {{ $validAddresses }}</strong></h4>
             </div>
             <div class="col-sm-3 col-xs-4 mt-4 text-center">
                 <h3>@lang('Top Penpals')</h3>

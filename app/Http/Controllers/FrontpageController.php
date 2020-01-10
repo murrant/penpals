@@ -18,7 +18,7 @@ class FrontpageController extends Controller
     {
         $data = [
             'completedAddresses' => $this->getCompletedAddresses(),
-            'validAddresses' => $this->getValidAddresses(),
+            'validAddresses' => $this->getValidAddresses() ?: 1,
             'totalPenpals' => $this->getTotalPenpals(),
             'topFive' => $this->getTopFive(),
         ];
