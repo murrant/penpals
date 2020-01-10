@@ -39,13 +39,6 @@ class AddressController extends Controller
         return response()->json(['addresses' => $penpal->addresses]);
     }
 
-    public function additionalAddresses()
-    {
-        Auth::user()->assignAddressAllotment();
-        return $this->index();
-    }
-
-
     /**
      * Display the specified resource.
      *

@@ -30,7 +30,6 @@ Route::post('address-request/{addressRequest}/deny', 'AddressRequestController@d
 Route::get('img/requests/{filename}', 'ImageRequestController@image')->middleware(['auth', 'can:approve-requests'])->name('request-image');
 // frontend access
 Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
-    Route::get('address/request', 'AddressController@additionalAddresses')->name('address.request');
     Route::resource('address', 'AddressController')->only(['index', 'update', 'show']);
     Route::resource('users', 'UserController')->only(['index', 'update'])->middleware('can:manage-penpals');
 });

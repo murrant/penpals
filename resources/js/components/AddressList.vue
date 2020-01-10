@@ -11,7 +11,7 @@
                         </div>
                         <div v-else>
                             All letters sent! :D<br />
-                            <a role="button" class="btn btn-primary" href="/address-request/create" @click="requestMore">Request More</a>
+                            <a role="button" class="btn btn-primary" href="/address-request/create">Request More</a>
                         </div>
                         <address-list-item
                             v-for="address in assigned"
@@ -96,11 +96,6 @@
                         return address;
                     });
                 });
-            },
-            requestMore() {
-                axios.get('ajax/address/request')
-                    .then(response => (this.addresses = response.data.addresses))
-                    .catch(error => toastr.error(error.response.data.message))
             },
             chunk (arr, size) {
                 return arr.reduce((chunks, el, i) => (i % size
