@@ -14,6 +14,7 @@ class Penpal extends Authenticatable
     use Notifiable;
     protected $fillable = ['email', 'first_name', 'last_name', 'phone', 'role', 'address'];
     protected $appends = ['name'];
+    protected $hidden = ['remember_token'];
 
     /**
      * Get the user's full name.

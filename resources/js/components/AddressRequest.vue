@@ -1,20 +1,32 @@
 <template>
-    <div class="card" v-if="pending">
+    <div class="card mb-3" v-if="pending">
         <div class="card-header">
             <h4>{{ penpal.first_name }} {{ penpal.last_name }}</h4>
             {{ penpal.email }}
         </div>
         <div class="card-body">
-            <img :src="'/img/' + request.image" class="proof">
-            <p class="card-text">{{ request.note }}</p>
-            <label> Addresses
-                <input type="number" name="amount" class="form-control" v-model="amount"/>
-            </label>
-            <label> Reason
-                <input type="text" name="reason" class="form-control" placeholder="Reason" v-model="reason"/>
-            </label>
-            <button type="submit" @click="submitApproval('approve')" class="btn btn-primary">Approve</button>
-            <button type="submit" @click="submitApproval('deny')" class="btn btn-primary">Deny</button>
+            <div class="row">
+                <img :src="'/img/' + request.image" class="proof">
+            </div>
+            <div class="row">
+                <p class="card-text">{{ request.note }}</p>
+            </div>
+            <div class="row">
+                <label> Addresses
+                    <input type="number" name="amount" class="form-control" v-model="amount"/>
+                </label>
+            </div>
+            <div class="row">
+                <label> Message (Give a reason if denying)
+                    <textarea type="text" name="reason" class="form-control" placeholder="Message" v-model="reason" cols="70" rows="5">
+                </textarea>
+                </label>
+            </div>
+            <div class="row">
+                <button type="submit" @click="submitApproval('approve')" class="btn btn-primary">Approve</button>
+                &nbsp;
+                <button type="submit" @click="submitApproval('deny')" class="btn btn-primary">Deny</button>
+            </div>
         </div>
     </div>
 </template>

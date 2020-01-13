@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center non-printable">
-            <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="row non-printable">
+            <div class="col-lg-8 col-md-10 col-sm-12 offset-lg-2 offset-md-1">
                 <div class="card">
                     <div class="card-header">Assigned PenPals ({{ assigned.length }})</div>
                     <div class="card-body">
@@ -23,13 +23,13 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center mt-3 non-printable">
-            <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="row mt-3 non-printable">
+            <div class="col-lg-8 col-md-10 col-sm-12 offset-lg-2 offset-md-1">
                 If you would like to request more addresses, take a picture of your letters before you mail them!
             </div>
         </div>
-        <div class="row justify-content-center mt-3">
-            <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="row mt-3 non-printable">
+            <div class="col-lg-8 col-md-10 col-sm-12 offset-lg-2 offset-md-1">
                 <div class="card" >
                     <div class="card-header">Completed ({{ completed.length }})</div>
                     <div class="card-body" v-if="completed.length > 0">

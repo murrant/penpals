@@ -7,4 +7,5 @@
     @empty
         No current requests :)
     @endforelse
+</div>
 @endsection
