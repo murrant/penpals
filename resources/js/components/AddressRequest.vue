@@ -12,7 +12,7 @@
                 </div>
                 <div class="col"><img :src="'/img/' + request.image" class="proof img-fluid"></div>
             </div>
-            <div class="row">
+            <div class="row" v-if="previous.length > 0">
                 <div class="col-12 mt-3">
                     <h5>Previous request images</h5>
                 </div>
