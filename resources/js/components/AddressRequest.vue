@@ -2,30 +2,53 @@
     <div class="card mb-3" v-if="pending">
         <div class="card-header">
             <h4>{{ penpal.first_name }} {{ penpal.last_name }}</h4>
-            {{ penpal.email }}
+            {{ penpal.email }}<br/>
+            Total Sent: {{ sent }}
         </div>
         <div class="card-body">
             <div class="row">
-                <img :src="'/img/' + request.image" class="proof">
+                <div class="col-12">
+                    <h5>Proof of letters sent</h5>
+                </div>
+                <div class="col"><img :src="'/img/' + request.image" class="proof img-fluid"></div>
             </div>
             <div class="row">
-                <p class="card-text">{{ request.note }}</p>
+                <div class="col-12 mt-3">
+                    <h5>Previous request images</h5>
+                </div>
+                <div class="col-12">
+                    <img v-for="image in previous" :src="'/img/' + image" class="previous-images img-fluid">
+                </div>
             </div>
             <div class="row">
-                <label> Addresses
-                    <input type="number" name="amount" class="form-control" v-model="amount"/>
-                </label>
+                <div class="col-12 mt-3">
+                    <h5>Message from requester</h5>
+                </div>
+                <div class="col">
+                    <p class="card-text">{{ request.note }}</p>
+                </div>
             </div>
             <div class="row">
-                <label> Message (Give a reason if denying)
-                    <textarea type="text" name="reason" class="form-control" placeholder="Message" v-model="reason" cols="70" rows="5">
-                </textarea>
-                </label>
+                <div class="col">
+                    <label> Addresses
+                        <input type="number" name="amount" class="form-control" v-model="amount"/>
+                    </label>
+                </div>
             </div>
             <div class="row">
-                <button type="submit" @click="submitApproval('approve')" class="btn btn-primary">Approve</button>
-                &nbsp;
-                <button type="submit" @click="submitApproval('deny')" class="btn btn-primary">Deny</button>
+                <div class="col">
+                    <label> Message (Give a reason if denying)
+                        <textarea type="text" name="reason" class="form-control" placeholder="Message" v-model="reason" cols="70" rows="5">
+                        </textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" @click="submitApproval('approve')" class="btn btn-primary">Approve</button>
+                    &nbsp;
+                    <button type="submit" @click="submitApproval('deny')" class="btn btn-primary">Deny</button>
+                </div>
             </div>
         </div>
     </div>
@@ -36,7 +59,9 @@
         name: "AddressRequest",
         props: {
             "request": Object,
-            "penpal": Object
+            "penpal": Object,
+            "sent": Number,
+            "previous": Array
         },
         data() {
             return {
@@ -62,5 +87,11 @@
 <style scoped>
     .proof {
         max-height: 300px;
+    }
+
+    .previous-images {
+        max-height: 100px;
+        max-width: 100px;
+        margin: 4px;
     }
 </style>

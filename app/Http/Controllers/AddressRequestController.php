@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use App\AddressRequest;
 use App\Events\AddressRequestApproved;
+use DB;
 use Illuminate\Http\Request;
-use Storage;
 
 class AddressRequestController extends Controller
 {
@@ -19,8 +20,21 @@ class AddressRequestController extends Controller
     {
         $this->authorize('approve-requests');
 
+        $requests = AddressRequest::with('penpal')->get();
+
+        $penpalIds = $requests->pluck('penpal_id')->unique();
+
+        $sent = Address::whereIn('penpal_id', $penpalIds)
+            ->select('penpal_id', DB::raw('count(*) as total'))
+            ->groupBy(['penpal_id'])->pluck('total', 'penpal_id');
+
+        $previous = AddressRequest::onlyTrashed()->whereIn('penpal_id', $penpalIds)
+            ->select('penpal_id', 'image')->get()->groupBy('penpal_id')->map->pluck('image');
+
         return view('address-request-list')->with([
-            'requests' => AddressRequest::with('penpal')->get(),
+            'requests' => $requests,
+            'sent' => $sent,
+            'images' => $previous,
         ]);
     }
 
