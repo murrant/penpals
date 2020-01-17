@@ -24,6 +24,7 @@ Route::get('/home', 'PenpalController@index')->name('home');
 Route::get('/penpals', 'PenpalController@index')->name('penpals');
 Route::get('/penpals.pdf', 'PenpalController@print')->name('penpals.pdf');
 Route::view('users', 'users')->middleware(['auth', 'can:manage-penpals'])->name('users');
+Route::get('stats', 'StatsController')->middleware(['auth', 'can:view-stats'])->name('stats');
 Route::resource('address-request', 'AddressRequestController')->only(['index', 'create', 'store']);
 Route::post('address-request/{addressRequest}/approve', 'AddressRequestController@approve')->name('address-request.approve');
 Route::post('address-request/{addressRequest}/deny', 'AddressRequestController@deny')->name('address-request.deny');

@@ -13,6 +13,7 @@
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}" defer></script>
     <script src="{{ mix('js/app.js') }}" defer></script>
+    @stack('js')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -66,6 +67,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('penpals') }}">{{ __('Penpals') }}</a>
                         </li>
+                        @can('view-stats')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('stats') }}">{{ __('Stats') }}</a>
+                            </li>
+                        @endcan
                         @can('manage-penpals')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users') }}">{{ __('Users') }}</a>
@@ -103,6 +109,8 @@
     <main class="py-4">
         @yield('content')
     </main>
+
+    @stack('script')
 
     <footer class="footer non-printable">
         <div class="container">
