@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view-stats', function ($user) {
-            return $user->role == PenpalRole::Admin;
+            return $user->role == PenpalRole::Moderator || $user->role == PenpalRole::Admin;
         });
 
         Gate::define('approve-requests', function ($user) {
