@@ -6,7 +6,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        Letters Sent by Day
+                        <h3>Letters Sent by Day</h3>
                         <span class="float-right">
                             <input
                                 id="days"
@@ -34,6 +34,11 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous"/>
+    <style type="text/css">
+        .card-header>h3 {
+            display: inline;
+        }
+    </style>
 @endpush
 
 @push('js')
