@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Imports\AddressImport;
+use App\Imports\OldAddressesImport;
 use App\Imports\UsedAddressesImport;
 use Excel;
 use Illuminate\Console\Command;
@@ -14,7 +15,7 @@ class ImportUsedAddresses extends Command
      *
      * @var string
      */
-    protected $signature = 'address:importUsed {file}';
+    protected $signature = 'address:importUsed {file} {--old}';
 
     /**
      * The console command description.
@@ -41,7 +42,8 @@ class ImportUsedAddresses extends Command
     public function handle()
     {
         $file = $this->argument('file');
-        Excel::import(new UsedAddressesImport(), $file);
+        $import = $this->option('old') ? new OldAddressesImport() : new UsedAddressesImport();
+        Excel::import($import, $file);
 
         return 0;
     }
