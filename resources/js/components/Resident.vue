@@ -1,12 +1,12 @@
 <template>
 <div class="card">
-    <div :class="{'card-header': true, 'bg-info': primary, 'text-light': primary}" v-on:click="shown = !shown">
+    <div :class="{'card-header': true, 'bg-info': primary, 'text-light': primary}">
         {{ resident.name }}
     </div>
-    <div class="card-body" v-show="shown">
+    <div class="card-body" v-show="expanded">
         <div>Age: {{ resident.age_range }}</div>
         <div>Gender: {{ resident.gender }}</div>
-        <div v-if="!primary">Relation: {{ resident.relation }}</div>
+        <div v-if="!primary && resident.relation">Relation: {{ resident.relation }}</div>
     </div>
 </div>
 </template>
@@ -18,11 +18,10 @@
             resident: {
                 type: Object,
                 require: true
-            }
-        },
-        data() {
-            return {
-                shown: false
+            },
+            expanded: {
+                type: Boolean,
+                require: true
             }
         },
         computed: {

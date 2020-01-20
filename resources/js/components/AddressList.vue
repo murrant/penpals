@@ -52,7 +52,8 @@
 
             <table>
                 <tr v-for="row in chunk(this.assigned, 2)">
-                    <td v-for="item in row" style="padding: 30px; font-size: 1.3em">
+                    <td v-for="item in row" class="print-cell">
+                        <div class="address" v-for="resident in item.residents"><strong>{{ resident.name }}</strong></div>
                         <mailing-address :address="item" />
                     </td>
                 </tr>
@@ -119,5 +120,8 @@
 
     table {
         width: 100%;
+    }
+    .print-cell {
+        padding: 30px;
     }
 </style>

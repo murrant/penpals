@@ -1,8 +1,8 @@
 <template>
     <div class="address-panel row">
         <div>
-            <div class="card-group">
-                <resident v-for="resident in address.residents" :resident="resident" :key="resident.id"/>
+            <div class="card-group" v-on:click="residentsExpanded = !residentsExpanded">
+                <resident v-for="resident in address.residents" :resident="resident" :key="resident.id" :expanded="residentsExpanded"/>
             </div>
             <mailing-address :address="address"/>
         </div>
@@ -27,7 +27,8 @@
         },
         data() {
             return {
-                completed: this.address.completed !== null
+                completed: this.address.completed !== null,
+                residentsExpanded: false
             }
         },
         watch: {

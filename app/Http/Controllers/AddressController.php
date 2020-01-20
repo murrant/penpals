@@ -6,6 +6,7 @@ use App\Address;
 use App\Penpal;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -20,14 +21,10 @@ class AddressController extends Controller
         /** @var Penpal $penpal */
         $penpal = Auth::user();
 
-        // only load primary
-        if (\request('primary-only')) {
-            $penpal->load(['addresses.residents' => function ($query) {
-                $query->where('relation', 'Primary');
-            }]);
-        } else {
-            $penpal->load('addresses.residents');
-        }
+        $penpal->load(['addresses.residents' => function ($query) {
+            /** @var Builder $query */
+            $query->select(['id', 'address_id', 'name', 'age_range', 'gender', 'relation']);
+        }]);
 
         if (\request('partition')) {
             [$assigned, $completed] = $penpal->addresses->partition(function ($address) {

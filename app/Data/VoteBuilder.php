@@ -100,6 +100,7 @@ class VoteBuilder
                 'last_name' => $person['last_name'],
                 'age_range' => $person['age'],
                 'gender' => $person['gender'],
+                'relation' => '',  // no relationship info
             ]));
         }
     }
