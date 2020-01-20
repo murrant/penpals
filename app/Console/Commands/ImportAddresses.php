@@ -15,7 +15,7 @@ class ImportAddresses extends Command
      *
      * @var string
      */
-    protected $signature = 'address:import {file} {--json}';
+    protected $signature = 'address:importMelissaWeb {file} {--json}';
 
     /**
      * The console command description.
