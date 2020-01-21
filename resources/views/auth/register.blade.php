@@ -8,6 +8,10 @@
                 <div class="card-header">@lang('Sign Up')</div>
 
                 <div class="card-body">
+                    @if(\App\Data\Stats::unassignedAddresses() < 10)
+                        <p>Sorry, We are currently out of addresses!</p>
+                        <p>Please check back later, we will add some more soon.</p>
+                    @else
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -112,6 +116,7 @@
                             </div>
                         </div>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>

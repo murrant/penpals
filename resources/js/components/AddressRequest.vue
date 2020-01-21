@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="submit" @click="submitApproval('approve')" class="btn btn-primary">Approve</button>
+                    <button type="submit" @click="submitApproval('approve')" class="btn btn-primary" :disabled="available < amount">Approve</button>
                     &nbsp;
                     <button type="submit" @click="submitApproval('deny')" class="btn btn-primary">Deny</button>
                 </div>
@@ -61,7 +61,8 @@
             "request": Object,
             "penpal": Object,
             "sent": Number,
-            "previous": Array
+            "previous": Array,
+            "available": Number
         },
         data() {
             return {

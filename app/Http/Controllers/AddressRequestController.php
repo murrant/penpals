@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\AddressRequest;
+use App\Data\Stats;
 use App\Events\AddressRequestApproved;
 use DB;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class AddressRequestController extends Controller
             'requests' => $requests,
             'sent' => $sent,
             'images' => $previous,
+            'available' => Stats::unassignedAddresses(),
         ]);
     }
 

@@ -61,5 +61,4 @@ class FrontpageController extends Controller
                 ->toArray();
         });
     }
-
 }
