@@ -16,6 +16,7 @@ class AddressStatus
             1 => 'Pending',
             2 => 'Invalid',
             3 => 'Valid',
+            4 => 'Expired',
         ])->get($status, 'Error Status not found');
     }
 }
