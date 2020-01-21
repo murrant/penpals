@@ -12,5 +12,6 @@ class Resident extends Model
         'last_name',
         'age_range',
         'gender',
+        'relation',
     ];
 }
