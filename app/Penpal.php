@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Exceptions\MaxAddresses;
-use Cache;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notifiable;
@@ -40,7 +40,10 @@ class Penpal extends Authenticatable
 
         // lock addresses so they aren't double assigned.
 //        $locks = collect();
-        $addresses = Address::query()->randomAllotment($amount)->get();
+        $addresses = Address::query()->randomAllotment($amount)->get()->map(function ($adddress) {
+            $adddress->assigned = Carbon::now();
+            return $adddress;
+        });
 //        ->filter(function ($address) use ($locks) {
 //            $lock = Cache::lock('address_assign_' . $address->id, 10);
 //            if ($lock->get()) {

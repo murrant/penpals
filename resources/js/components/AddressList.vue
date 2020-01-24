@@ -79,14 +79,18 @@
         },
         mounted() {
             axios.get('ajax/address')
-                .then(response => (this.addresses = response.data.addresses))
+                .then(response => (this.addresses = response.data.addresses.map(function (address) {
+                    address.completed = address.completed ? new Date(address.completed) : null;
+                    address.assigned = address.assigned ? new Date(address.assigned) : null;
+                    return address;
+                })));
         },
         computed: {
             assigned() {
-                return this.addresses.filter(address => address.completed === null)
+                return this.addresses.filter(address => address.completed === null).sort((a, b) => b.assigned - a.assigned)
             },
             completed() {
-                return this.addresses.filter(address => address.completed !== null)
+                return this.addresses.filter(address => address.completed !== null).sort((a, b) => b.completed - a.completed)
             }
         },
         methods: {
