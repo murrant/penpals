@@ -22,7 +22,7 @@
             <div class="col">
                 @forelse($requests as $request)
                     <address-request :penpal="{{ $request->penpal }}"
-                                     :previous="{{ json_encode(Arr::wrap($images->get($request->penpal_id))) }}"
+                                     :previous="{{ json_encode($images->get($request->penpal_id)) }}"
                                      :request="{{ $request }}"
                                      :sent="{{ $sent->get($request->penpal_id, 0) }}"
                                      :available="{{ $available }}"

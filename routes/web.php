@@ -29,6 +29,8 @@ Route::resource('address-request', 'AddressRequestController')->only(['index', '
 Route::post('address-request/{addressRequest}/approve', 'AddressRequestController@approve')->name('address-request.approve');
 Route::post('address-request/{addressRequest}/deny', 'AddressRequestController@deny')->name('address-request.deny');
 Route::get('img/requests/{filename}', 'ImageRequestController@image')->middleware(['auth', 'can:approve-requests'])->name('request-image');
+Route::get('img/small/requests/{filename}', 'ImageRequestController@smallImage')->middleware(['auth', 'can:approve-requests'])->name('request-image');
+Route::get('img/tiny/requests/{filename}', 'ImageRequestController@tinyImage')->middleware(['auth', 'can:approve-requests'])->name('request-image');
 // frontend access
 Route::group(['prefix' => 'ajax', 'middleware' => 'auth'], function () {
     Route::resource('address', 'AddressController')->only(['index', 'update', 'show']);

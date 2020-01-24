@@ -10,14 +10,20 @@
                 <div class="col-12">
                     <h5>Proof of letters sent</h5>
                 </div>
-                <div class="col"><img :src="'/img/' + request.image" class="proof img-fluid"></div>
+                <div class="col">
+                    <a :href="'/img/' + request.image">
+                        <img :src="'/img/small/' + request.image" class="proof img-fluid" alt="proof">
+                    </a>
+                </div>
             </div>
             <div class="row" v-if="previous.length > 0">
                 <div class="col-12 mt-3">
                     <h5>Previous request images</h5>
                 </div>
                 <div class="col-12">
-                    <img v-for="image in previous" :src="'/img/' + image" class="previous-images img-fluid">
+                    <a v-for="image in previous" :href="'/img/' + image">
+                        <img :src="'/img/tiny/' + image" class="previous-images img-fluid" alt="previous_proof">
+                    </a>
                 </div>
             </div>
             <div class="row">
