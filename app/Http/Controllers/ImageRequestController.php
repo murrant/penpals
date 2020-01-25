@@ -15,7 +15,7 @@ class ImageRequestController extends Controller
         $this->authorize('approve-requests');
         $this->filename = $filename;
 
-        $path = $this->getImagePath($filename);
+        $path = $this->getImagePath();
         $this->checkImage($path);
 
         return $this->buildImageResponse($path);
