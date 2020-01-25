@@ -2,10 +2,10 @@
 
 return [
     'addresses' => [
-        'allotment' => 10,
-        'max' => 250,
+        'allotment' => env('PENPALS_ALLOTMENT', 10),
+        'max' => env('PENPALS_MAX_ADDRESSES', 250),
     ],
     'registration' => [
-        'open' => true,
+        'open' => env('PENPALS_REGISTRATION_OPEN', true),
     ],
 ];
