@@ -57,7 +57,13 @@ class FrontpageController extends Controller
                 ->orderBy('addresses_count', 'desc')
                 ->limit($this->topPenpals)
                 ->get()
-                ->pluck('addresses_count', 'first_name')
+                ->map(function ($penpal) {
+                    return [
+                        'name' => $penpal->first_name . ' ' . substr($penpal->last_name, 0, 1),
+                        'addresses_count' => $penpal->addresses_count,
+                    ];
+                })
+                ->pluck('addresses_count', 'name')
                 ->toArray();
         });
     }
