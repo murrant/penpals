@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <penpal-list></penpal-list>
+    <div class="container">
+        <penpal-list></penpal-list>
+    </div>
 @endsection
