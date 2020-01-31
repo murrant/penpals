@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Data\VoteBuilder;
+use App\Imports\OtherAddressImport;
+use Excel;
 use Illuminate\Console\Command;
 
 class AddAddresses extends Command
@@ -12,7 +14,7 @@ class AddAddresses extends Command
      *
      * @var string
      */
-    protected $signature = 'address:import {file}';
+    protected $signature = 'address:import {file} {--other}';
 
     /**
      * The console command description.
@@ -38,10 +40,15 @@ class AddAddresses extends Command
      */
     public function handle()
     {
-        $vb = new VoteBuilder($this->argument('file'));
-        $vb->clean()
-            ->load()
-            ->import();
+        $file = $this->argument('file');
+        if ($this->option('other')) {
+            Excel::import(new OtherAddressImport(), $file);
+        } else {
+            $vb = new VoteBuilder($file);
+            $vb->clean()
+                ->load()
+                ->import();
+        }
 
         return 0;
     }
