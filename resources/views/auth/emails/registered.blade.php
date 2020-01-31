@@ -5,7 +5,7 @@
     <h3><a href="{{ $url }}">Click here to get your list of addresses</a></h3>
 @endsection
 
-@include('partials.welcome')
+@include('partials.nv-welcome')
 
 </body>
 </html>
