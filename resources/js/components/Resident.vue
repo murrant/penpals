@@ -5,7 +5,7 @@
     </div>
     <div class="card-body" v-show="expanded">
         <div>Age: {{ resident.age_range }}</div>
-        <div>Gender: {{ resident.gender }}</div>
+        <div v-if="resident.gender">Gender: {{ resident.gender }}</div>
         <div v-if="!primary && resident.relation">Relation: {{ resident.relation }}</div>
     </div>
 </div>
