@@ -33,6 +33,6 @@ class StatsController extends Controller
                     'penpals' => $penpalsPerDay->get($key, 0),
                     'sent' => $sentPerDay->get($key, 0),
                 ];
-            })->sort();
+            })->sort()->values();
     }
 }
